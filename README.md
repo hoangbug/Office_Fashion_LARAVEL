@@ -58,7 +58,8 @@ Hướng dẫn cài đặt:
 	
 	Bước 7: Chạy mở project với đường dẫn http://127.0.0.1:8000/
 
-	Chú ý: - Khi bắt đầu insert dữ liệu vào database mà có image thì các bạn chạy lệnh: php artisan storage:link để link image vào public
+	Chú ý: - Có thể dùng seeder để factories dữ kiệu faker
+	       - Khi bắt đầu insert dữ liệu vào database mà có image thì các bạn chạy lệnh: php artisan storage:link để link image vào public
 	       - Khi thanh toán xong chạy lệnh: php artisan queue:work --tries=3 để gửi mail và tin nhắn điện thoại khi đặt hàng thành công
 
 	.....
