@@ -48,68 +48,65 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form role="form" action="" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="category">Danh mục</label>
-                                    <select name="category" id="category" class="form-control selectpicker" data-live-search="true">
-                                        <option value="0" >-- Chọn danh mục --</option>
-                                        @foreach ($category as $value)
-                                            <option value="{{ $value['id'] }}">{{ $value['name_cate'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Tiêu để</label>
-                                    <input type="text" id="title" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Mã code</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="code" aria-describedby="basic-addon2" readonly>
-                                        <div class="input-group-append">
-                                          <button class="btn btn-outline-secondary" id="code-random" type="button">Lấy mã</button>
-                                        </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="category">Danh mục</label>
+                                <select name="category" id="category" class="form-control selectpicker" data-live-search="true">
+                                    <option value="0" >-- Chọn danh mục --</option>
+                                    @foreach ($category as $value)
+                                        <option value="{{ $value['id'] }}">{{ $value['name_cate'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Tiêu để</label>
+                                <input type="text" id="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mã code</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="code" aria-describedby="basic-addon2" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" id="code-random" type="button">Lấy mã</button>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Loại code</label>
-                                    <select name="type-code" class="form-control" id="type-code">
-                                        <option hidden disabled selected></option>
-                                        <option value="1">Mã giảm giá % theo sản phẩm</option>
-                                        <option value="2">Mã giảm giá tiền</option>
-                                        <option value="3">Mã miễn phí vận chuyển</option>
-                                    </select>
-                                </div>
-                                <div class="form-group" id="load-type-code">
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label>Số lượng</label>
-                                    <input class="form-control" type="number" name="quantity" id="quantity">
-                                </div>
-                                <div class="form-group">
-                                    <label>Thời gian sử dụng</label>
-                                    <select name="used-time" class="form-control" id="used-time">
-                                        <option value="1">1 ngày</option>
-                                        <option value="2">3 ngày</option>
-                                        <option value="3">5 ngày</option>
-                                        <option value="4">7 ngày</option>
-                                        <option value="5">15 ngày</option>
-                                        <option value="6">30 ngày</option>
-                                    </select>
-                                </div>                           
                             </div>
+                            <div class="form-group">
+                                <label>Loại code</label>
+                                <select name="type-code" class="form-control" id="type-code">
+                                    <option hidden disabled selected></option>
+                                    <option value="1">Mã giảm giá % theo sản phẩm</option>
+                                    <option value="2">Mã giảm giá tiền</option>
+                                    <option value="3">Mã miễn phí vận chuyển</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="load-type-code">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label>Số lượng</label>
+                                <input class="form-control" type="number" name="quantity" id="quantity">
+                            </div>
+                            <div class="form-group">
+                                <label>Thời gian sử dụng</label>
+                                <select name="used-time" class="form-control" id="used-time">
+                                    <option value="1">1 ngày</option>
+                                    <option value="2">3 ngày</option>
+                                    <option value="3">5 ngày</option>
+                                    <option value="4">7 ngày</option>
+                                    <option value="5">15 ngày</option>
+                                    <option value="6">30 ngày</option>
+                                </select>
+                            </div>                           
                         </div>
                     </div>
-                    <div class="modal-footer no-bd">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Add</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer no-bd">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Add</button>
+                </div>
             </div>
         </div>
     </div>

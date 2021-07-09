@@ -47,37 +47,34 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form role="form" id="" action="" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="gender-product">Khách hàng</label>
-                                    <select name="gender-product" id="gender-product" class="form-control">
-                                        <option value="0" hidden></option>
-                                        <option value="1">Thời trang nam</option>
-                                        <option value="2">Thời trang nữ</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="items">Sản phẩm</label>
-                                    <select name="items" id="items" class="form-control">
-                                        
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name-cate">Tên danh mục</label>
-                                    <input type="text" id="name-cate" name="name-cate" class="form-control">
-                                </div>                      
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="gender-product">Khách hàng</label>
+                                <select name="gender-product" id="gender-product" class="form-control">
+                                    <option value="0" hidden></option>
+                                    <option value="1">Thời trang nam</option>
+                                    <option value="2">Thời trang nữ</option>
+                                </select>
                             </div>
+                            <div class="form-group">
+                                <label for="items">Sản phẩm</label>
+                                <select name="items" id="items" class="form-control">
+                                    
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name-cate">Tên danh mục</label>
+                                <input type="text" id="name-cate" name="name-cate" class="form-control">
+                            </div>                      
                         </div>
                     </div>
-                    <div class="modal-footer no-bd">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                        <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Thêm mới</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer no-bd">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Thêm mới</button>
+                </div>
             </div>
         </div>
     </div>

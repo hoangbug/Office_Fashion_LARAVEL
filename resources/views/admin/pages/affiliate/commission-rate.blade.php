@@ -26,36 +26,33 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form role="form" id="insert-product" action="" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="category">Danh mục</label>
-                                    <select name="category" id="category" class="form-control">
-                                        @foreach ($category as $value)
-                                            <option value="{{ $value['id'] }}">{{ $value['name_cate'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="rose-old">Khách hàng cũ</label>
-                                    <input type="number" class="form-control" id="rose-old" name="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="rose-new">Khách hàng mới</label>
-                                    <input type="number" class="form-control" id="rose-new" name="">
-                                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="category">Danh mục</label>
+                                <select name="category" id="category" class="form-control">
+                                    @foreach ($category as $value)
+                                        <option value="{{ $value['id'] }}">{{ $value['name_cate'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="rose-old">Khách hàng cũ</label>
+                                <input type="number" class="form-control" id="rose-old" name="">
+                            </div>
+                            <div class="form-group">
+                                <label for="rose-new">Khách hàng mới</label>
+                                <input type="number" class="form-control" id="rose-new" name="">
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer no-bd">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Add</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer no-bd">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Add</button>
+                </div>
             </div>
         </div>
     </div>

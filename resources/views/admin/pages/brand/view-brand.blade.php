@@ -47,27 +47,24 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form role="form" id="" action="" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="name-brand">Tên thương hiệu</label>
-                                    <input type="text" id="name-brand" name="name-brand" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="images">Ảnh thương hiệu</label>
-                                    <input type="file" class="form-control" id="images" name="images" accept="image/*">
-                                </div>                            
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="name-brand">Tên thương hiệu</label>
+                                <input type="text" id="name-brand" name="name-brand" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="images">Ảnh thương hiệu</label>
+                                <input type="file" class="form-control" id="images" name="images" accept="image/*">
+                            </div>                            
                         </div>
                     </div>
-                    <div class="modal-footer no-bd">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                        <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Thêm mới</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer no-bd">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" id="insert" class="btn btn-primary" data-dismiss="modal">Thêm mới</button>
+                </div>
             </div>
         </div>
     </div>
