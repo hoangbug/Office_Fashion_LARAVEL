@@ -60,6 +60,7 @@ Hướng dẫn cài đặt:
 
 	Chú ý: - Có thể dùng seeder để factories dữ kiệu faker
 	       - Khi bắt đầu insert dữ liệu vào database mà có image thì các bạn chạy lệnh: php artisan storage:link để link image vào public
+           - Chạy lệnh php artisan db:seed --class=DetailProductSeeder để seeder các product
 	       - Khi thanh toán xong chạy lệnh: php artisan queue:work --tries=3 để gửi mail và tin nhắn điện thoại khi đặt hàng thành công
 
 	.....
