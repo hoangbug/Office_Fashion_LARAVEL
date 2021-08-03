@@ -64,6 +64,7 @@ Hướng dẫn cài đặt:
            - Chạy seeder xong bạn hãy tạo tài khoản và đăng nhập vào admin
            (Cập nhật số lượng sản phẩm vào dữ liệu seeder) 
 	       - Khi thanh toán xong chạy lệnh: php artisan queue:work --tries=3 để gửi mail và tin nhắn điện thoại khi đặt hàng thành công
+            ( Phần gửi tin nhắn về điện thoại mình chỉ demo nếu bạn có tài khoản Nexmo thì thêm key trong file .env và fix lại số điện thoại trong App\Jobs\SendMailCheckout.php)
 
 	.....
 
