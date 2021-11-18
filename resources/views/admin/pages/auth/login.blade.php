@@ -5,8 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('admin-assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin-assets/css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets-old/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets-old/css/login.css') }}">
     <title>Login</title>
 </head>
 <body>
@@ -48,9 +48,9 @@
         @endif
     </div>
 </div>
-<script src="{{ asset('admin-assets/js/core/jquery.3.2.1.min.js') }}"></script>
-<script src="{{ asset('admin-assets/js/sweetalert2@10.js') }}"></script>
-<script src="{{ asset('admin-assets/js/setting.js') }}"></script>
-<script src="{{ asset('admin-assets/js/project/project.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/core/jquery.3.2.1.min.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/sweetalert2@10.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/setting.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/project/project.js') }}"></script>
 </body>
 </html>

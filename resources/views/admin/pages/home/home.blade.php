@@ -1,538 +1,561 @@
-@extends('admin-index')
+@extends('admin.layout.app')
+
+@section('title')
+    {{ trans('layout.admin.home.title') }}
+@endsection
+
+@section('css')
+
+@endsection
+
+@section('script')
+
+@endsection
+
 @section('content')
-    <div class="content">
-        <div class="panel-header bg-primary-gradient">
-            <div class="page-inner py-5">
-                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                    <div>
-                        <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-                    </div>
-                    <div class="ml-md-auto py-2 py-md-0">
-                        <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
-                        <a href="#" class="btn btn-secondary btn-round">Add Customer</a>
-                    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="ibox bg-success color-white widget-stat">
+                <div class="ibox-body">
+                    <h2 class="m-b-5 font-strong">201</h2>
+                    <div class="m-b-5">NEW ORDERS</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                    <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
                 </div>
             </div>
         </div>
-        <div class="page-inner mt--5">
-            <div class="row mt--2">
-                <div class="col-md-6">
-                    <div class="card full-height" id="load-overall">
-                        
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card full-height">
-                        <div class="card-body">
-                            <div class="card-title">Total income & spend statistics</div>
-                            <div class="row py-3">
-                                <div class="col-md-4 d-flex flex-column justify-content-around">
-                                    <div>
-                                        <h6 class="fw-bold text-uppercase text-success op-8">Total Income</h6>
-                                        <h3 class="fw-bold">$9.782</h3>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold text-uppercase text-danger op-8">Total Spend</h6>
-                                        <h3 class="fw-bold">$1,248</h3>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div id="chart-container">
-                                        <canvas id="totalIncomeChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="ibox bg-info color-white widget-stat">
+                <div class="ibox-body">
+                    <h2 class="m-b-5 font-strong">1250</h2>
+                    <div class="m-b-5">UNIQUE VIEWS</div><i class="ti-bar-chart widget-stat-icon"></i>
+                    <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card" id="load-sales">
-                        
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-primary" id="load-month-sale">
-                        
-                    </div>
-                    <div class="card">
-                        <div class="card-body pb-0">
-                            <div class="h1 fw-bold float-right text-warning">+7%</div>
-                            <h2 class="mb-2">213</h2>
-                            <p class="text-muted">Transactions</p>
-                            <div class="pull-in sparkline-fix">
-                                <div id="lineChart"></div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="ibox bg-warning color-white widget-stat">
+                <div class="ibox-body">
+                    <h2 class="m-b-5 font-strong">$1570</h2>
+                    <div class="m-b-5">TOTAL INCOME</div><i class="fa fa-money widget-stat-icon"></i>
+                    <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
                 </div>
             </div>
-            <div class="row row-card-no-pd">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-head-row card-tools-still-right">
-                                <h4 class="card-title">Users Geolocation</h4>
-                                <div class="card-tools">
-                                    <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
-                                    <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
-                                    <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
-                                </div>
-                            </div>
-                            <p class="card-category">
-                            Map of the distribution of users around the world</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="table-responsive table-hover table-sales">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/id.png" alt="indonesia">
-                                                        </div>
-                                                    </td>
-                                                    <td>Indonesia</td>
-                                                    <td class="text-right">
-                                                        2.320
-                                                    </td>
-                                                    <td class="text-right">
-                                                        42.18%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/us.png" alt="united states">
-                                                        </div>
-                                                    </td>
-                                                    <td>USA</td>
-                                                    <td class="text-right">
-                                                        240
-                                                    </td>
-                                                    <td class="text-right">
-                                                        4.36%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/au.png" alt="australia">
-                                                        </div>
-                                                    </td>
-                                                    <td>Australia</td>
-                                                    <td class="text-right">
-                                                        119
-                                                    </td>
-                                                    <td class="text-right">
-                                                        2.16%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/ru.png" alt="russia">
-                                                        </div>
-                                                    </td>
-                                                    <td>Russia</td>
-                                                    <td class="text-right">
-                                                        1.081
-                                                    </td>
-                                                    <td class="text-right">
-                                                        19.65%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/cn.png" alt="china">
-                                                        </div>
-                                                    </td>
-                                                    <td>China</td>
-                                                    <td class="text-right">
-                                                        1.100
-                                                    </td>
-                                                    <td class="text-right">
-                                                        20%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="../assets/img/flags/br.png" alt="brazil">
-                                                        </div>
-                                                    </td>
-                                                    <td>Brasil</td>
-                                                    <td class="text-right">
-                                                        640
-                                                    </td>
-                                                    <td class="text-right">
-                                                        11.63%
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mapcontainer">
-                                        <div id="map-example" class="vmap"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Top Products</div>
-                        </div>
-                        <div class="card-body pb-0">
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">CSS</h6>
-                                    <small class="text-muted">Cascading Style Sheets</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$17</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">J.CO Donuts</h6>
-                                    <small class="text-muted">The Best Donuts</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$300</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                    <small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$350</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="pull-in">
-                                <canvas id="topProductsChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title fw-mediumbold">Suggested People</div>
-                            <div class="card-list">
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">Jimmy Denis</div>
-                                        <div class="status">Graphic Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">Chad</div>
-                                        <div class="status">CEO Zeleaf</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">Talha</div>
-                                        <div class="status">Front End Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">John Doe</div>
-                                        <div class="status">Back End Developer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">Talha</div>
-                                        <div class="status">Front End Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="info-user ml-3">
-                                        <div class="username">Jimmy Denis</div>
-                                        <div class="status">Graphic Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-primary bg-primary-gradient">
-                        <div class="card-body">
-                            <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-                            <h1 class="mb-4 fw-bold">17</h1>
-                            <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-                            <div id="activeUsersChart"></div>
-                            <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-                            <ul class="list-unstyled">
-                                <li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
-                                <li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card full-height">
-                        <div class="card-header">
-                            <div class="card-title">Feed Activity</div>
-                        </div>
-                        <div class="card-body">
-                            <ol class="activity-feed">
-                                <li class="feed-item feed-item-secondary">
-                                    <time class="date" datetime="9-25">Sep 25</time>
-                                    <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-success">
-                                    <time class="date" datetime="9-24">Sep 24</time>
-                                    <span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-info">
-                                    <time class="date" datetime="9-23">Sep 23</time>
-                                    <span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-warning">
-                                    <time class="date" datetime="9-21">Sep 21</time>
-                                    <span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-danger">
-                                    <time class="date" datetime="9-18">Sep 18</time>
-                                    <span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-                                </li>
-                                <li class="feed-item">
-                                    <time class="date" datetime="9-17">Sep 17</time>
-                                    <span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card full-height">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title">Support Tickets</div>
-                                <div class="card-tools">
-                                    <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Today</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">Week</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">Month</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="avatar avatar-online">
-                                    <span class="avatar-title rounded-circle border border-white bg-info">J</span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h6>
-                                    <span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
-                                </div>
-                                <div class="float-right pt-1">
-                                    <small class="text-muted">8:40 PM</small>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar avatar-offline">
-                                    <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h6>
-                                    <span class="text-muted">I have some query regarding the license issue.</span>
-                                </div>
-                                <div class="float-right pt-1">
-                                    <small class="text-muted">1 Day Ago</small>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar avatar-away">
-                                    <span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h6>
-                                    <span class="text-muted">Is there any update plan for RTL version near future?</span>
-                                </div>
-                                <div class="float-right pt-1">
-                                    <small class="text-muted">2 Days Ago</small>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar avatar-offline">
-                                    <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h6>
-                                    <span class="text-muted">I have some query regarding the license issue.</span>
-                                </div>
-                                <div class="float-right pt-1">
-                                    <small class="text-muted">2 Day Ago</small>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar avatar-away">
-                                    <span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h6>
-                                    <span class="text-muted">Is there any update plan for RTL version near future?</span>
-                                </div>
-                                <div class="float-right pt-1">
-                                    <small class="text-muted">2 Days Ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="ibox bg-danger color-white widget-stat">
+                <div class="ibox-body">
+                    <h2 class="m-b-5 font-strong">108</h2>
+                    <div class="m-b-5">NEW USERS</div><i class="ti-user widget-stat-icon"></i>
+                    <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container-fluid">
-            <nav class="pull-left">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.themekita.com">
-                            ThemeKita
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Help
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Licenses
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright ml-auto">
-                2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
-            </div>				
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-body">
+                    <div class="flexbox mb-4">
+                        <div>
+                            <h3 class="m-0">Statistics</h3>
+                            <div>Your shop sales analytics</div>
+                        </div>
+                        <div class="d-inline-flex">
+                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);">
+                                <div class="text-muted">WEEKLY INCOME</div>
+                                <div>
+                                    <span class="h2 m-0">$850</span>
+                                    <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
+                                </div>
+                            </div>
+                            <div class="px-3">
+                                <div class="text-muted">WEEKLY SALES</div>
+                                <div>
+                                    <span class="h2 m-0">240</span>
+                                    <span class="text-warning ml-2"><i class="fa fa-level-down"></i> -12%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <canvas id="bar_chart" style="height:260px;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Statistics</div>
+                </div>
+                <div class="ibox-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <canvas id="doughnut_chart" style="height:160px;"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="m-b-20 text-success"><i class="fa fa-circle-o m-r-10"></i>Desktop 52%</div>
+                            <div class="m-b-20 text-info"><i class="fa fa-circle-o m-r-10"></i>Tablet 27%</div>
+                            <div class="m-b-20 text-warning"><i class="fa fa-circle-o m-r-10"></i>Mobile 21%</div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-divider list-group-full">
+                        <li class="list-group-item">Chrome
+                            <span class="float-right text-success"><i class="fa fa-caret-up"></i> 24%</span>
+                        </li>
+                        <li class="list-group-item">Firefox
+                            <span class="float-right text-success"><i class="fa fa-caret-up"></i> 12%</span>
+                        </li>
+                        <li class="list-group-item">Opera
+                            <span class="float-right text-danger"><i class="fa fa-caret-down"></i> 4%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Visitors Statistics</div>
+                </div>
+                <div class="ibox-body">
+                    <div id="world-map" style="height: 300px;"></div>
+                    <table class="table table-striped m-t-20 visitors-table">
+                        <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Visits</th>
+                            <th>Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/us.png" />USA</td>
+                            <td>755</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:52%; height:5px;" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">52%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/Canada.png" />Canada</td>
+                            <td>700</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:48%; height:5px;" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">48%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/India.png" />India</td>
+                            <td>410</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:37%; height:5px;" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">37%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/Australia.png" />Australia</td>
+                            <td>304</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" style="width:36%; height:5px;" aria-valuenow="36" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">36%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/Singapore.png" />Singapore</td>
+                            <td>203</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar" role="progressbar" style="width:35%; height:5px;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">35%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/uk.png" />UK</td>
+                            <td>202</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" style="width:35%; height:5px;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">35%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="m-r-10" src="./assets/img/flags/UAE.png" />UAE</td>
+                            <td>180</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:30%; height:5px;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="progress-parcent">30%</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Tasks</div>
+                    <div>
+                        <a class="btn btn-info btn-sm" href="javascript:;">New Task</a>
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <ul class="list-group list-group-divider list-group-full tasks-list">
+                        <li class="list-group-item task-item">
+                            <div>
+                                <label class="ui-checkbox ui-checkbox-gray ui-checkbox-success">
+                                    <input type="checkbox">
+                                    <span class="input-span"></span>
+                                    <span class="task-title">Meeting with Eliza</span>
+                                </label>
+                            </div>
+                            <div class="task-data"><small class="text-muted">10 July 2018</small></div>
+                            <div class="task-actions">
+                                <a href="javascript:;"><i class="fa fa-edit text-muted m-r-10"></i></a>
+                                <a href="javascript:;"><i class="fa fa-trash text-muted"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item task-item">
+                            <div>
+                                <label class="ui-checkbox ui-checkbox-gray ui-checkbox-success">
+                                    <input type="checkbox" checked="">
+                                    <span class="input-span"></span>
+                                    <span class="task-title">Check your inbox</span>
+                                </label>
+                            </div>
+                            <div class="task-data"><small class="text-muted">22 May 2018</small></div>
+                            <div class="task-actions">
+                                <a href="javascript:;"><i class="fa fa-edit text-muted m-r-10"></i></a>
+                                <a href="javascript:;"><i class="fa fa-trash text-muted"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item task-item">
+                            <div>
+                                <label class="ui-checkbox ui-checkbox-gray ui-checkbox-success">
+                                    <input type="checkbox">
+                                    <span class="input-span"></span>
+                                    <span class="task-title">Create Financial Report</span>
+                                </label>
+                                <span class="badge badge-danger m-l-5"><i class="ti-alarm-clock"></i> 1 hrs</span>
+                            </div>
+                            <div class="task-data"><small class="text-muted">No due date</small></div>
+                            <div class="task-actions">
+                                <a href="javascript:;"><i class="fa fa-edit text-muted m-r-10"></i></a>
+                                <a href="javascript:;"><i class="fa fa-trash text-muted"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item task-item">
+                            <div>
+                                <label class="ui-checkbox ui-checkbox-gray ui-checkbox-success">
+                                    <input type="checkbox" checked="">
+                                    <span class="input-span"></span>
+                                    <span class="task-title">Send message to Mick</span>
+                                </label>
+                            </div>
+                            <div class="task-data"><small class="text-muted">04 Apr 2018</small></div>
+                            <div class="task-actions">
+                                <a href="javascript:;"><i class="fa fa-edit text-muted m-r-10"></i></a>
+                                <a href="javascript:;"><i class="fa fa-trash text-muted"></i></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item task-item">
+                            <div>
+                                <label class="ui-checkbox ui-checkbox-gray ui-checkbox-success">
+                                    <input type="checkbox">
+                                    <span class="input-span"></span>
+                                    <span class="task-title">Create new page</span>
+                                </label>
+                                <span class="badge badge-success m-l-5">2 Days</span>
+                            </div>
+                            <div class="task-data"><small class="text-muted">07 Dec 2018</small></div>
+                            <div class="task-actions">
+                                <a href="javascript:;"><i class="fa fa-edit text-muted m-r-10"></i></a>
+                                <a href="javascript:;"><i class="fa fa-trash text-muted"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Messages</div>
+                </div>
+                <div class="ibox-body">
+                    <ul class="media-list media-list-divider m-0">
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img class="img-circle" src="./assets/img/users/u1.jpg" width="40" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">Jeanne Gonzalez <small class="float-right text-muted">12:05</small></div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text of the printing and typesetting.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img class="img-circle" src="./assets/img/users/u2.jpg" width="40" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">Becky Brooks <small class="float-right text-muted">1 hrs ago</small></div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text of the printing and typesetting.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img class="img-circle" src="./assets/img/users/u3.jpg" width="40" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">Frank Cruz <small class="float-right text-muted">3 hrs ago</small></div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text of the printing and typesetting.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img class="img-circle" src="./assets/img/users/u6.jpg" width="40" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">Connor Perez <small class="float-right text-muted">Today</small></div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text of the printing and typesetting.</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Latest Orders</div>
+                    <div class="ibox-tools">
+                        <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item">option 1</a>
+                            <a class="dropdown-item">option 2</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th width="91px">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT2584</a>
+                            </td>
+                            <td>@Jack</td>
+                            <td>$564.00</td>
+                            <td>
+                                <span class="badge badge-success">Shipped</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT2575</a>
+                            </td>
+                            <td>@Amalia</td>
+                            <td>$220.60</td>
+                            <td>
+                                <span class="badge badge-success">Shipped</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT1204</a>
+                            </td>
+                            <td>@Emma</td>
+                            <td>$760.00</td>
+                            <td>
+                                <span class="badge badge-default">Pending</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT7578</a>
+                            </td>
+                            <td>@James</td>
+                            <td>$87.60</td>
+                            <td>
+                                <span class="badge badge-warning">Expired</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT0158</a>
+                            </td>
+                            <td>@Ava</td>
+                            <td>$430.50</td>
+                            <td>
+                                <span class="badge badge-default">Pending</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice.html">AT0127</a>
+                            </td>
+                            <td>@Noah</td>
+                            <td>$64.00</td>
+                            <td>
+                                <span class="badge badge-success">Shipped</span>
+                            </td>
+                            <td>10/07/2017</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">Best Sellers</div>
+                </div>
+                <div class="ibox-body">
+                    <ul class="media-list media-list-divider m-0">
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img src="./assets/img/image.jpg" width="50px;" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <a href="javascript:;">Samsung</a>
+                                    <span class="font-16 float-right">1200</span>
+                                </div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img src="./assets/img/image.jpg" width="50px;" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <a href="javascript:;">iPhone</a>
+                                    <span class="font-16 float-right">1150</span>
+                                </div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img src="./assets/img/image.jpg" width="50px;" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <a href="javascript:;">iMac</a>
+                                    <span class="font-16 float-right">800</span>
+                                </div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text.</div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a class="media-img" href="javascript:;">
+                                <img src="./assets/img/image.jpg" width="50px;" />
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <a href="javascript:;">apple Watch</a>
+                                    <span class="font-16 float-right">705</span>
+                                </div>
+                                <div class="font-13">Lorem Ipsum is simply dummy text.</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ibox-footer text-center">
+                    <a href="javascript:;">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .visitors-table tbody tr td:last-child {
+            display: flex;
+            align-items: center;
+        }
 
+        .visitors-table .progress {
+            flex: 1;
+        }
+
+        .visitors-table .progress-parcent {
+            text-align: right;
+            margin-left: 10px;
+        }
+    </style>
+    <div>
+        <a class="adminca-banner" href="http://admincast.com/adminca/" target="_blank">
+            <div class="adminca-banner-ribbon"><i class="fa fa-trophy mr-2"></i>PREMIUM TEMPLATE</div>
+            <div class="wrap-1">
+                <div class="wrap-2">
+                    <div>
+                        <img src="./assets/img/adminca-banner/adminca-preview.jpg" style="height:160px;margin-top:50px;" />
+                    </div>
+                    <div class="color-white" style="margin-left:40px;">
+                        <h1 class="font-bold">ADMINCA</h1>
+                        <p class="font-16">Save your time, choose the best</p>
+                        <ul class="list-unstyled">
+                            <li class="m-b-5"><i class="ti-check m-r-5"></i>High Quality Design</li>
+                            <li class="m-b-5"><i class="ti-check m-r-5"></i>Fully Customizable and Easy Code</li>
+                            <li class="m-b-5"><i class="ti-check m-r-5"></i>Bootstrap 4 and Angular 5+</li>
+                            <li class="m-b-5"><i class="ti-check m-r-5"></i>Best Build Tools: Gulp, SaSS, Pug...</li>
+                            <li><i class="ti-check m-r-5"></i>More layouts, pages, components</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="flex:1;">
+                    <div class="d-flex justify-content-end wrap-3">
+                        <div class="adminca-banner-b m-r-20">
+                            <img src="./assets/img/adminca-banner/bootstrap.png" style="width:40px;margin-right:10px;" />Bootstrap v4</div>
+                        <div class="adminca-banner-b m-r-10">
+                            <img src="./assets/img/adminca-banner/angular.png" style="width:35px;margin-right:10px;" />Angular v5+</div>
+                    </div>
+                    <div class="dev-img">
+                        <img src="./assets/img/adminca-banner/sprite.png" />
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 @endsection
 
-@section('script-ajax')
-<script>
-    $(document).ready(function(){
-        function load_overall(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('home.overall') }}",
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#load-overall').html(data);
-                }
-            });
-        }
-        load_overall();
+@section('after-js')
 
-        function load_sales(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('home.revenue') }}",
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#load-sales').html(data);
-                }
-            });
-        }
-        load_sales();
-
-        function load_month_sale(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('load.month.sale') }}",
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#load-month-sale').html(data);
-                }
-            });
-        }
-        load_month_sale();
-    });
-</script>
 @endsection
