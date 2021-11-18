@@ -11,27 +11,29 @@ use App\Models\Admin\Product\Brand;
 
 class BrandController extends Controller
 {
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-                if(($start_date) == ($end_date)){
-                    $data = Brand::select('*')->whereDate('created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = Brand::select('*')->whereBetween('created_at', array($start_date, $end_date))->get()->toArray();
+            // if(!empty($request->start_date) && !empty($request->end_date)) {
+            //     $start_date = $request->start_date;
+            //     $end_date = $request->end_date;
+            //     if(($start_date) == ($end_date)){
+            //         $data = Brand::select('*')->whereDate('created_at', '=', $start_date)->get()->toArray();
+            //     }else{
+            //         $data = Brand::select('*')->whereBetween('created_at', array($start_date, $end_date))->get()->toArray();
+            //     }
+            // }
+            $data = Brand::select('*')->get()->toArray();
+            if(!empty($data)){
+                foreach($data as $key => $value){
+                    $status = $value['status'];
+                    if(($status) == 1){
+                        $data[$key]['status'] = 'Đang hoạt động';
+                    }elseif(($status) == 2){
+                        $data[$key]['status'] = 'Dừng hoạt động';
+                    }
+                    $data[$key]['created_at'] = date('d-m-Y', strtotime($value['created_at']));
                 }
             }
-            foreach($data as $key => $value){
-                $status = $value['status'];
-                if(($status) == 1){
-                    $data[$key]['status'] = 'Đang hoạt động';
-                }elseif(($status) == 2){
-                    $data[$key]['status'] = 'Dừng hoạt động';
-                }
-            }
-            // dd($data);
             return Datatables::of($data)->make(true);
         }
         return view('admin/pages/brand.view-brand');
@@ -44,6 +46,7 @@ class BrandController extends Controller
                 'name_brand' => 'required',
                 'file' => 'image|mimes:jpg,png,jpeg'
             ]);
+            // var_dump($request->all());
             $check = Brand::select('id', 'name_brand')->where('name_brand', '=', $request->name_brand)->get()->toArray();
             if(empty($check)){
                 if($request->hasFile('file')){
