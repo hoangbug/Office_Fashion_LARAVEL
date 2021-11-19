@@ -15,7 +15,7 @@ class DetailProductSeeder extends Seeder
     public function run()
     {
         // factory(DetailSize::class, 25)->create();
-        factory(DetailImage::class, 25)->create();
+        factory(DetailImage::class, 50)->create();
         // factory(Product::class, 200)->create();
     }
 }
