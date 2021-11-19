@@ -97,7 +97,7 @@ aria-hidden="true">
                         <div class="form-group" class="my-input">
                             <label for="images">Ảnh thương hiệu</label>
                             <input type="file" class="form-control" id="images" name="images" accept="image/*">
-                        </div>                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,80 +110,49 @@ aria-hidden="true">
 </div>
 
 <!-- Modal edit  -->
-<div class="modal fade" id="edit-property" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px">
-        <!-- Modal content-->
+<div class="modal fade" id="updateBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px;">
         <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h4 class="modal-title text-light font-weight-700">Thông tin định giá tài sản</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title text-uppercase font-weight-bold" id="exampleModalCenterTitle">Quản lý thương hiệu</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="row m-0 bg-white">
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="type-asset-edit">Loại tài sản thẩm định</label>
-                                <input name="type-asset-edit" id="type-asset-edit" class="form-control" readonly placeholder="Loại tài sản">
-                            </div>
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="price-show">Hãng tài sản thẩm định</label>
-                                <input id="firm-edit" class="form-control" type="text" name="firm-edit" placeholder="Hãng tài sản thẩm định" required>
-                            </div>
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="asset-id-edit">Mã tài sản thẩm định</label>
-                                <input id="asset-id-edit" class="form-control" type="text" name="asset-id-edit" placeholder="Mã tài sản thẩm định" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row m-0 bg-white">
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="price-edit">Giá trị</label>
-                                <div class="input-group">
-                                    <input id="price-edit" class="form-control" type="text" name="price-edit" placeholder="Giá trị" data-type="currency" required>
-                                    <span class="input-group-addon">VND</span>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="name-asset-edit">Tên tài sản thẩm định</label>
-                                <input id="name-asset-edit" class="form-control" type="text" name="name-asset-edit" placeholder="Tên tài sản thẩm định" required>
-                            </div>
-                            <div class="form-group col-md-4 mt-25">
-                                <label class="my-input" for="note-edit">Ghi chú</label>
-                                <input id="note-edit" class="form-control" type="text" name="note-edit" placeholder="Ghi chú" required>
-                            </div>
-                        </div>
+                    <div class="col-sm-12" id="load-edit">
+
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning update-property">Cập nhật</button>
+                <button type="button" class="btn btn-info update-brand" data-dismiss="modal">Cập nhật</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal delete  -->
-<div class="modal fade" id="delete-property" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <!-- Modal content-->
+<!-- Modal destroy -->
+<div class="modal fade" id="destroyBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h4 class="modal-title text-light font-weight-700">Xóa thẩm định tài sản</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase font-weight-700" id="exampleModalCenterTitle">Quản lý thương hiệu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <label class="font-weight-600 text-dark">Bạn có chắc chắn muốn xóa thẩm định này không ?</label>
+                <h6>Bạn có chắc chắn muốn xóa thương hiệu này không?</h6>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xóa</button>
+                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xác nhận</button>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
 @section('library-js')
 
@@ -207,7 +176,7 @@ aria-hidden="true">
                 url: '{{ route('brand.index') }}',
                 type: 'GET',
                 data: function(param) {
-                    
+
                 }
             },
             lengthMenu: [
@@ -296,7 +265,127 @@ aria-hidden="true">
                 }
             }
         });
-        
+        //* edit brand
+        var arrBrand = [];
+        $(document).on('click', '.edit-brand', function (){
+            var id = $(this).attr('data-url');
+            if(id != "" && Number(id)){
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('brand.edit') }}",
+                    data: { id : id },
+                    dataType: "json",
+                    success: function(data) {
+                        var brandEdit = [];
+                        var arr = Object.keys(data).map(key => data[key]);
+                        brandEdit.push(arr[0][0]);
+                        var selectedIs = '';
+                        var selectedStop = '';
+                        if((brandEdit[0]['status']) == 1){
+                            selectedIs = 'selected';
+                        }else if(brandEdit[0]['status'] == 2){
+                            selectedStop = 'selected';
+                        }
+                        var option = '<div class="form-group">\
+                                        <label for="update-name-brand" class="my-input">Tên thương hiệu</label>\
+                                        <input type="text" id="update-name-brand" name="update-name-brand" class="form-control" value="'+ brandEdit[0]['name_brand'] +'">\
+                                    </div>\
+                                    <div class="form-group d-flex flex-column">\
+                                        <label for="images" class="my-input">Ảnh thương hiệu</label>\
+                                        <img src="{{ asset('storage/images/brand') }}/'+ brandEdit[0]['image_brand'] +'" alt="" style="width: 300px">\
+                                    </div>\
+                                    <div class="form-group">\
+                                        <label for="update-images" class="my-input">Thay ảnh mới</label>\
+                                        <input type="file" class="form-control" id="update-images" name="update-images" accept="image/*">\
+                                    </div>\
+                                    <div class="form-group">\
+                                        <label for="status" class="my-input">Trạng thái</label>\
+                                        <select name="status" id="status" class="form-control">\
+                                            <option value="1" '+ selectedIs +'>Đang hoạt động</option>\
+                                            <option value="2" '+ selectedStop +'>Dừng hoạt động</option>\
+                                        </select>\
+                                    </div>';
+                        $('#load-edit').html(option);
+                        arrBrand.push(brandEdit[0]['id']);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.update-brand', function (e){
+            e.preventDefault();
+            var id = arrBrand.slice(-1)[0];
+            var name_brand = $('#update-name-brand').val();
+            var file = $('#update-images')[0].files[0];
+            var status = $('select[name="status"]').val();
+
+            if(name_brand != "" && status != ""){
+                if(file != undefined){
+                    var fileType = file['type'];
+                    var validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+                    var form_data = new FormData();
+                    if (validImageTypes.includes(fileType)) {
+                        form_data.append('id', id);
+                        form_data.append('name_brand', name_brand);
+                        form_data.append('file', file);
+                        form_data.append('status', status);
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('brand.update') }}",
+                            data: form_data,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                if(data == 1){
+                                    notification('center', 'error', 'Tên thương hiệu đã tồn tại!', 500, false, 1500);
+                                }else{
+                                    notification('center', 'success', 'Cập nhật thương hiệu thành công!', 500, false, 1500);
+                                }
+                            }
+                        });
+                    }else{
+                        notification('center', 'error', 'File ảnh không đúng định dạng!', 500, false, 1500);
+                    }
+                }else{
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('brand.update') }}",
+                        data: { id: id, name_brand: name_brand, status: status },
+                        success: function(data) {
+                            if(data == 1){
+                                notification('center', 'error', 'Tên thương hiệu đã tồn tại!', 500, false, 1500);
+                            }else{
+                                notification('center', 'success', 'Cập nhật thương hiệu thành công!', 500, false, 1500);
+                            }
+                        }
+                    });
+                }
+                dataBrand.ajax.reload(null, false);
+            }
+        });
+
+        //* delete brand
+        $(document).on('click', '.delete-brand', function (){
+            var id = $(this).attr('data-url');
+            if(id != "" && id > 0 && id != String){
+                arrBrand.push(id);
+            }
+        });
+
+        $(document).on('click', '.confirm', function (){
+            var id = arrBrand.slice(-1)[0];
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: "{{ route('brand.delete') }}",
+                cache: false,
+                success: function() {
+                    notification('center', 'success', 'Thương hiệu đã bị xóa!', 500, false, 1500);
+                    dataBrand.ajax.reload(null, false);
+                }
+            });
+        });
 
     });
 </script>
