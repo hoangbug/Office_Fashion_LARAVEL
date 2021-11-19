@@ -61,6 +61,7 @@ Route::middleware(['loginAdmin'])->group(function () {
 
         //* admin - product
         Route::get('/product', 'Admin\Product\ProductController@index')->name('product.index');
+        Route::get('/view-add-product', 'Admin\Product\ProductController@viewAddNew')->name('product.view.add');
         Route::post('/product-store', 'Admin\Product\ProductController@store')->name('product.store');
         Route::get('/product-show', 'Admin\Product\ProductController@show')->name('product.show');
         Route::get('/product-edit', 'Admin\Product\ProductController@edit')->name('product.edit');
@@ -308,7 +309,7 @@ Route::group(['prefix' => ''], function () {
 
     Route::resource('/cart', 'User\Cart\CartController')->except(['']);
     Route::get('/discount', 'User\Cart\CartController@checkDiscount')->name('discount.product');
-    
+
     Route::get('/checkout', 'User\Cart\CheckoutController@index')->name('checkout.index');
     Route::get('/checkout/vnpay', 'User\Cart\CheckoutController@checkoutVnpay')->name('checkout.vnpay');
     Route::post('/checkout/store', 'User\Cart\CheckoutController@store')->name('checkout.store');
@@ -334,7 +335,7 @@ Route::group(['prefix' => ''], function () {
     Route::post('/change-pass', 'User\Account\AccountController@changePass')->name('account.changepass');
     Route::post('/update-information', 'User\Account\AccountController@updateInformation')->name('update.information');
 
-    
+
     //* to mix fashion
     Route::group(['prefix' => 'mix-fashion'], function () {
         Route::get('/', 'User\MixFashion\MixFashionController@index')->name('fashion.directional');
@@ -359,7 +360,7 @@ Route::group(['prefix' => ''], function () {
         Route::get('/directional-affiliate', 'User\Affiliate\AffiliateController@directional')->name('affiliate.directional');
         Route::get('/register-affiliate', 'User\Affiliate\AffiliateController@register')->name('affiliate.register');
         Route::get('/login-affiliate', 'User\Affiliate\AffiliateController@login')->name('affiliate.login');
-        
+
         Route::get('/manage-program', 'User\Affiliate\AffiliateController@manageProgram')->name('affiliate.manage');
         Route::get('/profile-account', 'User\Affiliate\AffiliateController@profileAccount')->name('affiliate.profile');
         Route::post('/update-account', 'User\Affiliate\AffiliateController@updateAffiliate')->name('update.profile');
@@ -377,7 +378,7 @@ Route::group(['prefix' => ''], function () {
         Route::post('/affiliate-login', 'User\Affiliate\PartnerController@login')->name('partner.login');
         Route::get('/affiliate-logout', 'User\Affiliate\PartnerController@logout')->name('partner.logout');
     });
-    
+
     //* link code affiliate
     Route::get('/affiliate/{partner}/{program}/{sca_key}','User\Affiliate\AffiliateController@getLink')->name('affiliate.link');
 

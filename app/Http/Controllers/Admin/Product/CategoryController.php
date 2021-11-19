@@ -14,62 +14,39 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-                if(($start_date) == ($end_date)){
-                    $data = Category::select('*')->whereDate('created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = Category::select('*')->whereBetween('created_at', array($start_date, $end_date))->get()->toArray();
+            $request->validate([
+                'category' => 'required|in:0,1,2',
+                'product' => 'required|in:0,1,2,3,4,5,6,7,8'
+            ]);
+            $category = $request->category;
+            if($category == 0){
+                $operatorCate = '<>';
+            }else{
+                $operatorCate = '=';
+            }
+            $product = $request->product;
+            if($product == 0){
+                $operatorPro = '<>';
+            }else{
+                $operatorPro = '=';
+            }
+            $data = Category::select('*')->where('gender_product', $operatorCate, $category)->where('items', $operatorPro, $product)->get()->toArray();
+            if(!empty($data)){
+                foreach($data as $key => $value){
+                    $data[$key]['created_at'] = date('d-m-Y', strtotime($value['created_at']));
                 }
             }
-            foreach($data as $key => $value){
-                $gender = $value['gender_product'];
-                if(($gender) == 1){
-                    $data[$key]['gender_product'] = 'Nam';
-                }elseif(($gender) == 2){
-                    $data[$key]['gender_product'] = 'Nữ';
-                }
-
-                $items = $value['items'];
-                if(($items) == 1){
-                    $data[$key]['items'] = 'Áo nam';
-                }elseif(($items) == 2){
-                    $data[$key]['items'] = 'Áo nữ';
-                }elseif(($items) == 3){
-                    $data[$key]['items'] = 'Quần nam';
-                }elseif(($items) == 4){
-                    $data[$key]['items'] = 'Quần nữ';
-                }elseif(($items) == 5){
-                    $data[$key]['items'] = 'Giày nam';
-                }elseif(($items) == 6){
-                    $data[$key]['items'] = 'Giày nữ';
-                }elseif(($items) == 7){
-                    $data[$key]['items'] = 'Phụ kiện nam';
-                }elseif(($items) == 8){
-                    $data[$key]['items'] = 'Phụ kiện nữ';
-                }
-
-                $status = $value['status'];
-                if(($status) == 1){
-                    $data[$key]['status'] = 'Đang hoạt động';
-                }elseif(($status) == 2){
-                    $data[$key]['status'] = 'Dừng hoạt động';
-                }
-
-            }
-            // dd($data);
             return Datatables::of($data)->make(true);
         }
-        return view('admin/pages/category.view-category');
+        return view('admin/pages/category-product.view-category');
     }
 
     public function insert(Request $request)
     {
         if(request()->ajax()){
             $request->validate([
-                'gender' => 'required|min:1|max:2',
-                'items' => 'required|min:1|max:8',
+                'gender' => 'required|in:1,2',
+                'items' => 'required|in:1,2,3,4,5,6,7,8',
                 'name_cate' => 'required'
             ]);
             $items = $request->items;
@@ -126,8 +103,8 @@ class CategoryController extends Controller
         if(request()->ajax()){
             $request->validate([
                 'id' => 'required|integer|min:1',
-                'gender' => 'required|min:1|max:2',
-                'items' => 'required|min:1|max:8',
+                'gender' => 'required|in:1,2',
+                'items' => 'required|in:1,2,3,4,5,6,7,8',
                 'name_cate' => 'required',
                 'status' => 'required|min:1|max:2'
             ]);

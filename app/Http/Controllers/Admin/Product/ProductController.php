@@ -20,31 +20,31 @@ use App\Models\User\ShoppingCart\OrderDetail;
 class ProductController extends Controller
 {
     public function index(Request $request){
-        $category = Category::all();
-        $brand = Brand::all();
+        $category = Category::select('id', 'name_cate')->get()->toArray();
+        $brand = Brand::select('id', 'name_brand')->get()->toArray();
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-                if(($start_date) == ($end_date)){
-                    $data = Product::select('id', 'name', 'main_image', 'price', 'sale', 'views', 'status')->whereDate('created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = Product::select('id', 'name', 'main_image', 'price', 'sale', 'views', 'status')->whereBetween('created_at', array($start_date, $end_date))->get()->toArray();
-                }
+            $request->validate([
+                'brand' => 'required|integer|min:0',
+                'category' => 'required|integer|min:0',
+            ]);
+            $brand_id = $request->brand;
+            if($brand_id == 0){
+                $operatorBrand = '<>';
+            }else{
+                $operatorBrand = '=';
             }
+            $category_id = $request->category;
+            if($category_id == 0){
+                $operatorCate = '<>';
+            }else{
+                $operatorCate = '=';
+            }
+            // $data = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')->join('brands', 'products.brand_id', '=', 'brands.id')->select('products.id', 'products.name', 'products.main_image', 'products.price', 'products.status', 'products.created_at')->where('products.brand_id', $operatorBrand, $brand_id)->where('products.category_id', $operatorCate, $category_id)->get()->toArray();
+            $data = Product::select('id', 'name', 'main_image', 'price', 'status', 'created_at')->where('brand_id', $operatorBrand, $brand_id)->where('category_id', $operatorCate, $category_id)->get()->toArray();
             // dd($data);
-            foreach($data as $key => $value){
-                $status = $value['status'];
-                if(($status) == 1){
-                    $data[$key]['status'] = 'Sản phẩm mới';
-                }elseif(($status) == 2){
-                    $data[$key]['status'] = 'Đang bán';
-                }elseif(($status) == 3){
-                    $data[$key]['status'] = 'Bán chạy nhất';
-                }elseif(($status) == 4){
-                    $data[$key]['status'] = 'Giảm giá sốc';
-                }elseif(($status) == 5){
-                    $data[$key]['status'] = 'Đã hết hàng';
+            if(!empty($data)){
+                foreach($data as $key => $value){
+                    $data[$key]['created_at'] = date('d-m-Y', strtotime($value['created_at']));
                 }
             }
             return Datatables::of($data)->make(true);
@@ -56,18 +56,27 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
+    public function viewAddNew(){
+        $category = Category::select('id', 'name_cate')->get()->toArray();
+        $brand = Brand::select('id', 'name_brand')->get()->toArray();
+        return view('admin/pages/product.add-product',[
+            'category' => $category,
+            'brand' => $brand
+        ]);
+    }
+
+    public function store(Request $request){
         $request->validate([
             'category_id' => 'required',
             'brand_id' => 'required',
-            'name' => 'required|min:10|max:150',
+            'name' => 'required|min:1|max:150',
             'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'price' => 'required|min:0|regex:/^\d+(,\d{3})*(\.\d{1,3})?$/'
+            'price' => 'required|min:1'
         ]);
-
+        // var_dump($request->all());
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image')->hashName();
+            // dd($image);
             Storage::putFile('public/images/product', $request->file('main_image'));
 
             $product = new Product;
@@ -77,8 +86,8 @@ class ProductController extends Controller
             $product->main_image = $image;
             $product->price = $request->price;
             $product->description = $request->description;
-
             $product->save();
+            return 1;
         }
     }
 

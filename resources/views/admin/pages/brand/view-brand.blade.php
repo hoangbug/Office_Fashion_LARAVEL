@@ -94,8 +94,8 @@ aria-hidden="true">
                             <label for="name-brand-create" class="my-input">Tên thương hiệu</label>
                             <input type="text" id="name-brand-create" name="name-brand-create" class="form-control">
                         </div>
-                        <div class="form-group" class="my-input">
-                            <label for="images">Ảnh thương hiệu</label>
+                        <div class="form-group">
+                            <label for="images" class="my-input">Ảnh thương hiệu</label>
                             <input type="file" class="form-control" id="images" name="images" accept="image/*">
                         </div>
                     </div>

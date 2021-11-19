@@ -22,11 +22,11 @@ class Product extends Model
     public function brand(){
         return $this->belongsTo('App\Models\Admin\Product\Brand', 'brand_id', 'id');
     }
-    
+
     public function detailSize(){
         return $this->hasMany('App\Models\Admin\Product\DetailSize', 'product_id', 'id');
     }
-    
+
     public function detailImage(){
         return $this->hasMany('App\Models\Admin\Product\DetailImage', 'product_id', 'id');
     }

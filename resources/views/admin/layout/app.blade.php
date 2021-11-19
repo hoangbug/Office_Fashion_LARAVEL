@@ -20,6 +20,8 @@
 
     {{-- Date Range Picker --}}
     <link href="{{ asset('admin_assets/css/daterangepicker.css') }}" rel="stylesheet" />
+    
+    @yield('script')
 
     <!-- THEME STYLES-->
     <link href="{{ asset('admin_assets/css/main.min.css') }}" rel="stylesheet" />
@@ -28,7 +30,6 @@
     <!-- PAGE LEVEL STYLES-->
     @yield('css')
 
-    @yield('script')
 
 </head>
 
