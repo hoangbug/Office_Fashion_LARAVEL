@@ -8,69 +8,35 @@
                 <div class="font-strong">James Brown</div><small>Administrator</small></div>
         </div>
         <ul class="side-menu metismenu">
-            <li>
-                <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
+            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+                <a class="active" href="{{ url('admin') }}"><i class="sidebar-item-icon fa fa-th-large"></i>
                     <span class="nav-label">Dashboard</span>
                 </a>
             </li>
             <li class="heading">FEATURES</li>
-            <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                    <span class="nav-label">Basic UI</span><i class="fa fa-angle-left arrow"></i></a>
-                <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="colors.html">Colors</a>
-                    </li>
-                    <li>
-                        <a href="typography.html">Typography</a>
-                    </li>
-                    <li>
-                        <a href="panels.html">Panels</a>
-                    </li>
-                    <li>
-                        <a href="buttons.html">Buttons</a>
-                    </li>
-                    <li>
-                        <a href="tabs.html">Tabs</a>
-                    </li>
-                    <li>
-                        <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
-                    </li>
-                    <li>
-                        <a href="badges_progress.html">Badges &amp; Progress</a>
-                    </li>
-                    <li>
-                        <a href="lists.html">List</a>
-                    </li>
-                    <li>
-                        <a href="cards.html">Card</a>
-                    </li>
-                </ul>
+            <li class="{{ Request::is('admin/brand') ? 'active' : '' }}">
+                <a class="active" href="{{ route('brand.index') }}"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                    <span class="nav-label">Quản lý thương hiệu</span>
+                </a>
             </li>
-            <li>
+            <li class="{{ Request::is('admin/product', 'admin/category') ? 'active' : '' }}">
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Quản lý sản phẩm</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="form_basic.html">Basic Forms</a>
+                        <a href="{{ route('category.index') }}">Danh mục sản phẩm</a>
                     </li>
                     <li>
-                        <a href="form_advanced.html">Advanced Plugins</a>
+                        <a href="{{ route('product.index') }}">Quản lý sản phẩm</a>
                     </li>
                     <li>
-                        <a href="form_masks.html">Form input masks</a>
-                    </li>
-                    <li>
-                        <a href="form_validation.html">Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="text_editors.html">Text Editors</a>
+                        <a href="">Comment sản phẩm</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                    <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Quản lý bài viết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="table_basic.html">Basic Tables</a>
@@ -82,7 +48,7 @@
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                    <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Quản lý đơn hàng</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="charts_flot.html">Flot Charts</a>
@@ -100,7 +66,7 @@
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
-                    <span class="nav-label">Maps</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Tiếp thị liên kết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="maps_vector.html">Vector maps</a>

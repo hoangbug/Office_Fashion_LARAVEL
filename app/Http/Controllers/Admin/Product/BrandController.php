@@ -93,11 +93,11 @@ class BrandController extends Controller
 
             $selectImage = Brand::select('name_brand', 'image_brand')->where('id', '=', $request->id)->get()->toArray();
             if(($selectImage[0]['name_brand']) == $request->name_brand){
-
                 $brand = Brand::find($request->id);
                 $brand->name_brand = $request->name_brand;
                 if($request->hasFile('file')){
                     $image = $request->file('file')->hashName();
+                    // dd($image);
                     Storage::putFile('public/images/brand', $request->file('file'));
 
                     $des_path = 'storage/images/brand/' . $selectImage[0]['image_brand'];
