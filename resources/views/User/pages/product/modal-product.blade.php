@@ -135,63 +135,63 @@ function substr_word($str, $limit)
 
 
 <script>
-    var sizeDefault = $('#sizeDefault').val();
-    var sizeProduct = 0;
+    // var sizeDefault = $('#sizeDefault').val();
+    // var sizeProduct = 0;
 
-    $(document).on('click', '.btn-size', function(e){
-        e.preventDefault();
-        $('.btn-size').removeClass('active-size');
-        $(this).toggleClass('active-size');
+    // $(document).on('click', '.btn-size', function(e){
+    //     e.preventDefault();
+    //     $('.btn-size').removeClass('active-size');
+    //     $(this).toggleClass('active-size');
 
-        var size_id = $(this).attr('size_id');
-        var quantity = $(this).attr('quantitySize');
-        // $('#totalProduct').val(quantitySize);
-        $('.quantityProduct').html('Có '+quantity+' sản phẩm có sẵn');
-        sizeProduct = $(this).attr('nameSize');
-        $('#noti-checksize').html('');
-        $('#display-size').css({'background': '#fff'});
-        $('#c-size').css({'color': '#777'});
-    });
-    $(document).on('click', '.add-to-cart', function(e){
-    // $('.add-to-cart').click(function(e){
-        e.preventDefault();
-        // var product_id = '{{ $detailWomen[0]->id }}';
-        var quantity = $('#sst').val();
+    //     var size_id = $(this).attr('size_id');
+    //     var quantity = $(this).attr('quantitySize');
+    //     // $('#totalProduct').val(quantitySize);
+    //     $('.quantityProduct').html('Có '+quantity+' sản phẩm có sẵn');
+    //     sizeProduct = $(this).attr('nameSize');
+    //     $('#noti-checksize').html('');
+    //     $('#display-size').css({'background': '#fff'});
+    //     $('#c-size').css({'color': '#777'});
+    // });
+    // $(document).on('click', '.add-to-cart', function(e){
+    // // $('.add-to-cart').click(function(e){
+    //     e.preventDefault();
+    //     // var product_id = '{{ $detailWomen[0]->id }}';
+    //     var quantity = $('#sst').val();
         
-        if(sizeProduct == "" && sizeDefault == 0){
-            $('#noti-checksize').html('Vui lòng chọn Size!');
-            $('#display-size').css({'background': '#ff8080'});
-            $('#c-size').css({'color': '#000'});
-        }else if(sizeDefault == 1){
-            sizeProduct = 1;
-        }
-        $.ajax({
-            type: "GET",
-            url: "{{ route('cart.show', $detailWomen[0]->id) }}",
-            data: {quantity: quantity, sizeProduct: sizeProduct, sizeDefault: sizeDefault},
-            success: function (data) {
-                if(data == 1){
-                    var html = '';
-                    html +='\
-                    <div class="noti-cart-view animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top: 40%;opacity:0.7; padding:20px; left: 35%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                        <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background: red" class="fas fa-times" aria-hidden="true"></span>\
-                        <p style="margin-top:20px;font-size: 20px; color:white">Bạn đã thêm số lượng tối đa của sản phẩm</p>\
-                    </div>';
-                    $('.notification-view').html(html);
-                    $('.noti-cart').delay(2000).slideUp();
-                }else{
-                    $('#load-count').load(' .count-cart');
-                    var html = '';
-                    html +='\
-                    <div class="noti-cart-view animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top: 40%;opacity:0.7; padding:20px; left: 35%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                        <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background:#00CCCC" class="fas fa-check" aria-hidden="true"></span>\
-                        <p style="margin-top:20px;font-size: 20px; color:white">Sản phẩm đã được thêm vào Giỏ hàng</p>\
-                    </div>';
-                    $('.notification-view').html(html);
-                    $('.noti-cart-view').delay(2000).slideUp();
-                }
-            }
-        });
+    //     if(sizeProduct == "" && sizeDefault == 0){
+    //         $('#noti-checksize').html('Vui lòng chọn Size!');
+    //         $('#display-size').css({'background': '#ff8080'});
+    //         $('#c-size').css({'color': '#000'});
+    //     }else if(sizeDefault == 1){
+    //         sizeProduct = 1;
+    //     }
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "{{ route('cart.show', $detailWomen[0]->id) }}",
+    //         data: {quantity: quantity, sizeProduct: sizeProduct, sizeDefault: sizeDefault},
+    //         success: function (data) {
+    //             if(data == 1){
+    //                 var html = '';
+    //                 html +='\
+    //                 <div class="noti-cart-view animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top: 40%;opacity:0.7; padding:20px; left: 35%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
+    //                     <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background: red" class="fas fa-times" aria-hidden="true"></span>\
+    //                     <p style="margin-top:20px;font-size: 20px; color:white">Bạn đã thêm số lượng tối đa của sản phẩm</p>\
+    //                 </div>';
+    //                 $('.notification-view').html(html);
+    //                 $('.noti-cart').delay(2000).slideUp();
+    //             }else{
+    //                 $('#load-count').load(' .count-cart');
+    //                 var html = '';
+    //                 html +='\
+    //                 <div class="noti-cart-view animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top: 40%;opacity:0.7; padding:20px; left: 35%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
+    //                     <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background:#00CCCC" class="fas fa-check" aria-hidden="true"></span>\
+    //                     <p style="margin-top:20px;font-size: 20px; color:white">Sản phẩm đã được thêm vào Giỏ hàng</p>\
+    //                 </div>';
+    //                 $('.notification-view').html(html);
+    //                 $('.noti-cart-view').delay(2000).slideUp();
+    //             }
+    //         }
+    //     });
 
-    });
+    // });
 </script>

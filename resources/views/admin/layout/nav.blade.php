@@ -29,7 +29,7 @@
                     <span class="nav-label">Quản lý sản phẩm</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="{{ route('product.index') }}">Quản lý sản phẩm</a>
+                        <a href="{{ route('product.index') }}">Sản phẩm</a>
                     </li>
                     <li>
                         <a href="">Comment sản phẩm</a>

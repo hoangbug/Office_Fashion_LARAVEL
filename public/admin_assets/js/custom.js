@@ -124,7 +124,7 @@ $("input[data-type='number']").on('change', function() {
     var num = $(this).val();
     var dataVal = $(this).attr('data-val');
     if (num != "" && num.length > 0 && num.length <= 25) {
-        var number_regex = /^[0-9]{6,50}$/;
+        var number_regex = /^[0-9]{1,50}$/;
         if (num.match(number_regex)) {
             return num;
         } else {
@@ -139,7 +139,7 @@ function loadCheckNumber() {
         var num = $(this).val();
         var dataVal = $(this).attr('data-val');
         if (num != "" && num.length > 0 && num.length <= 25) {
-            var number_regex = /^[0-9]{6,50}$/;
+            var number_regex = /^[0-9]{1,50}$/;
             if (num.match(number_regex)) {
                 return num;
             } else {

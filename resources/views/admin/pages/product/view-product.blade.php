@@ -20,7 +20,7 @@
                 <h3 class="text-dark font-weight-700">Quản lý sản phẩm</h3>
             </div>
             <div class="col-md-8 p-0 d-flex justify-content-end">
-                <a  href="{{ route('product.view.add') }}" class="d-flex justify-content-end align-items-center" style="width: 60px;">
+                <a href="{{ route('product.view.add') }}" class="d-flex justify-content-end align-items-center" style="width: 60px;">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </a>
             </div>
@@ -58,6 +58,11 @@
                 <div class="col-md-3 mt-25 mb-25 custom-search">
                     <div class="input-group">
                         <button class="btn btn-info search-store" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-25 mb-25 custom-search justify-content-end">
+                    <div class="input-group" style="width: 60px">
+                        <button class="btn btn-warning refresh-data" style="width: 60px; height: 38px;" type="button"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>
@@ -159,21 +164,21 @@
 </div>
 
 
-<!-- Modal destroy -->
-<div class="modal fade" id="destroyCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal delete product -->
+<div class="modal fade" id="delete-product" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title font-weight-700" id="exampleModalCenterTitle">Quản lý danh mục sản phẩm</h4>
+                <h4 class="modal-title font-weight-700" id="exampleModalCenterTitle">Thông tin Sản phẩm</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5>Bạn có chắc chắn muốn xóa danh mục này không ?</h5>
+                <h5>Bạn có chắc chắn muốn xóa sản phẩm này không ?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xác nhận</button>
+                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xóa</button>
             </div>
         </div>
     </div>
@@ -227,7 +232,7 @@
                 },
                 {
                     data: 'main_image', render: function (data, type, row) {
-                        return '<img src="{{ asset('storage/images/brand') }}/'+ data +'" alt="" style="width:100px; height: 100px;">';
+                        return '<img src="{{ asset('storage/images/product') }}/'+ data +'" alt="" style="width:100px; height: 100px;">';
                     }
                 },
                 {data: 'name', name: 'name'},
@@ -255,8 +260,7 @@
                 {
                     data: '',
                     render: function(data, type, row) {
-                        return '<button type="button" class="btn btn-primary show-product" data-url='+ row.id +' data-toggle="modal" data-target="#show-product"><i class="fa fa-eye" aria-hidden="true"></i></button>\
-                        <button type="button" class="btn btn-warning edit-product" data-url='+ row.id +' data-toggle="modal" data-target="#edit-product"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>\
+                        return '<button type="button" class="btn btn-warning edit-product" data-url='+ row.id +' data-toggle="modal" data-target="#edit-product"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>\
                         <button type="button" class="btn btn-danger destroy-product" data-toggle="modal" data-target="#delete-product" data-url='+ row.id +'><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                     }
                 }
@@ -287,17 +291,36 @@
         $(document).on('click', '.edit-product', function(){
             var id = $(this).attr('data-url');
             if(id != "" && id > 0){
-                window.location.href = 'product-edit/'+id;
-                // $.ajax({
-                //     type: "GET",
-                //     url: "{{ route('product.edit') }}",
-                //     data: { id: id },
-                //     dataType: "html",
-                //     success: function(data) {
-                //         $('#edit-detail').html(data);
-                //     }
-                // });
+                window.open("product-edit/"+id);
             }
+        });
+
+        $(document).on('click', '.refresh-data', function(){
+            dataProduct.ajax.reload(null, false);
+        });
+
+        //* delete product
+        var arrProduct = [];
+        $(document).on('click', '.destroy-product', function(e){
+            e.preventDefault();
+            var id = $(this).attr('data-url');
+            if(id != "" && id > 0 && id != String){
+                arrProduct.push(id);
+            }
+        });
+        $(document).on('click', '.confirm', function(e){
+            e.preventDefault();
+            var id = arrProduct.slice(-1)[0];
+            $.ajax({
+                type: "GET",
+                url: "{{ route('product.destroy') }}",
+                data: { id: id },
+                cache: false,
+                success: function() {
+                    notification('center', 'success', 'Xóa sản phẩm thành công!', 500, false, 1500);
+                    dataProduct.ajax.reload(null, false);
+                }
+            });
         });
 
     });
