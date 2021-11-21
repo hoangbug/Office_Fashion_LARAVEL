@@ -57,8 +57,8 @@ class ProductController extends Controller
     }
 
     public function viewAddNew(){
-        $category = Category::select('id', 'name_cate')->get()->toArray();
-        $brand = Brand::select('id', 'name_brand')->get()->toArray();
+        $category = Category::select('id', 'name_cate')->where('status', 1)->get()->toArray();
+        $brand = Brand::select('id', 'name_brand')->where('status', 1)->get()->toArray();
         return view('admin/pages/product.add-product',[
             'category' => $category,
             'brand' => $brand
@@ -104,31 +104,39 @@ class ProductController extends Controller
         }
     }
 
-    public function edit(Request $request)
-    {
-        if(request()->ajax()){
-            if(!empty($request->id) && is_numeric($request->id)){
-                $id = $request->id;
-                $category = Category::select('id', 'name_cate')->get()->toArray();
-                $brand = Brand::select('id', 'name_brand')->get()->toArray();
+    public function getCallCategory(){
+        return Category::select('id', 'name_cate')->get()->toArray();
+    }
 
-                $product = Product::select('*')->where('id', '=', $id)->get()->toArray();
+    public function getCallBrand(){
+        return Brand::select('id', 'name_brand')->get()->toArray();
+    }
 
-                $checkItems = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')->select('items')->where('products.id', '=', $id)->get()->toArray();
+    public function edit($id){
+        if(!empty($id) && is_numeric($id)){
+            $product = DB::table('products')
+                            ->join('categories', 'products.category_id', '=', 'categories.id')
+                            ->join('brands', 'products.brand_id', '=', 'brands.id')
+                            ->select('products.id', 'products.name', 'products.main_image', 'products.price', 'products.description', 'products.sale', 'products.status', 'categories.name_cate', 'categories.items', 'brands.name_brand')
+                            ->where('products.id', $id)
+                            ->get()->toArray();
 
-                $checkSize = DB::table('detail_sizes')->join('products', 'detail_sizes.product_id', '=', 'products.id')->select('detail_sizes.id', 'detail_sizes.product_id', 'detail_sizes.name_size', 'detail_sizes.quantity')->where('products.id', '=', $id)->get()->toArray();
+            // $product = Product::select('*')->where('id', $id)->get()->toArray();
+            // $checkItems = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')->select('items')->where('products.id', '=', $id)->get()->toArray();
+            // dd($product);
 
-                $checkImage = DB::table('detail_images')->join('products', 'detail_images.product_id', '=', 'products.id')->select('detail_images.id', 'detail_images.product_id', 'detail_images.sub_image')->where('products.id', '=', $id)->get()->toArray();
+            $checkSize = DB::table('detail_sizes')->join('products', 'detail_sizes.product_id', '=', 'products.id')->select('detail_sizes.id', 'detail_sizes.product_id', 'detail_sizes.name_size', 'detail_sizes.quantity')->where('detail_sizes.product_id', $id)->get()->toArray();
+            // dd($checkSize);
 
-                return view('admin/pages/product.update-product', [
-                    'data' => $product,
-                    'category' => $category,
-                    'brand' => $brand,
-                    'checkItems' => $checkItems,
-                    'select_detail' => $checkSize,
-                    'image_detail' => $checkImage,
-                ]);
-            }
+            $checkImage = DB::table('detail_images')->join('products', 'detail_images.product_id', '=', 'products.id')->select('detail_images.id', 'detail_images.product_id', 'detail_images.sub_image')->where('products.id', '=', $id)->get()->toArray();
+            return view('admin/pages/product.edit-product', [
+                'data' => $product,
+                // 'category' => $category,
+                // 'brand' => $brand,
+                // 'checkItems' => $checkItems,
+                'select_detail' => $checkSize,
+                'image_detail' => $checkImage,
+            ]);
         }
     }
 

@@ -64,6 +64,7 @@ Route::middleware(['loginAdmin'])->group(function () {
         Route::get('/view-add-product', 'Admin\Product\ProductController@viewAddNew')->name('product.view.add');
         Route::post('/product-store', 'Admin\Product\ProductController@store')->name('product.store');
         Route::get('/product-show', 'Admin\Product\ProductController@show')->name('product.show');
+        Route::get('/product-edit/{id}', 'Admin\Product\ProductController@edit')->name('product.edit');
         Route::get('/product-edit', 'Admin\Product\ProductController@edit')->name('product.edit');
         Route::post('/product-update', 'Admin\Product\ProductController@update')->name('product.update');
         Route::get('/product-destroy', 'Admin\Product\ProductController@destroy')->name('product.destroy');

@@ -158,30 +158,6 @@
     </div>
 </div>
 
-<!-- Modal edit  -->
-<div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title font-weight-700" id="exampleModalCenterTitle">Quản lý danh mục sản phẩm</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12" id="load-edit">
-
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-info update-category" data-dismiss="modal">Xác nhận</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal destroy -->
 <div class="modal fade" id="destroyCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -308,6 +284,21 @@
             $('#datatables').DataTable().search(filter).draw();
         });
 
+        $(document).on('click', '.edit-product', function(){
+            var id = $(this).attr('data-url');
+            if(id != "" && id > 0){
+                window.location.href = 'product-edit/'+id;
+                // $.ajax({
+                //     type: "GET",
+                //     url: "{{ route('product.edit') }}",
+                //     data: { id: id },
+                //     dataType: "html",
+                //     success: function(data) {
+                //         $('#edit-detail').html(data);
+                //     }
+                // });
+            }
+        });
 
     });
 </script>

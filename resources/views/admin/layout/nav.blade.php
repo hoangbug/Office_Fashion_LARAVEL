@@ -15,17 +15,19 @@
             </li>
             <li class="heading">FEATURES</li>
             <li class="{{ Request::is('admin/brand') ? 'active' : '' }}">
-                <a class="active" href="{{ route('brand.index') }}"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                <a href="{{ route('brand.index') }}"><i class="sidebar-item-icon fa fa-bookmark"></i>
                     <span class="nav-label">Quản lý thương hiệu</span>
                 </a>
             </li>
-            <li class="{{ Request::is('admin/product', 'admin/category') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/category') ? 'active' : '' }}">
+                <a href="{{ route('category.index') }}"><i class="sidebar-item-icon fa fa-list-alt" aria-hidden="true"></i>
+                    <span class="nav-label">Danh mục sản phẩm</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('admin/product') ? 'active' : '' }}">
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Quản lý sản phẩm</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="{{ route('category.index') }}">Danh mục sản phẩm</a>
-                    </li>
                     <li>
                         <a href="{{ route('product.index') }}">Quản lý sản phẩm</a>
                     </li>
@@ -35,7 +37,7 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-newspaper-o" aria-hidden="true"></i>
                     <span class="nav-label">Quản lý bài viết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
@@ -47,8 +49,26 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                    <span class="nav-label">Quản lý đơn hàng</span><i class="fa fa-angle-left arrow"></i></a>
+                <a href="javascript:;"><i class="sidebar-item-icon ti-gift"></i>
+                    <span class="nav-label">Mã khuyến mại</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="charts_flot.html">Flot Charts</a>
+                    </li>
+                    <li>
+                        <a href="charts_morris.html">Morris Charts</a>
+                    </li>
+                    <li>
+                        <a href="chartjs.html">Chart.js</a>
+                    </li>
+                    <li>
+                        <a href="charts_sparkline.html">Sparkline Charts</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-users"></i>
+                    <span class="nav-label">Khách hàng</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="charts_flot.html">Flot Charts</a>
@@ -73,12 +93,17 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="icons.html"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                    <span class="nav-label">Icons</span>
+            <li class="">
+                <a href=""><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="nav-label">Quản lý đơn hàng</span>
                 </a>
             </li>
-            <li class="heading">PAGES</li>
+            <li>
+                <a href=""><i class="sidebar-item-icon ti-notepad"></i>
+                    <span class="nav-label">Báo cáo</span>
+                </a>
+            </li>
+            {{-- <li class="heading">PAGES</li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
                     <span class="nav-label">Mailbox</span><i class="fa fa-angle-left arrow"></i></a>
@@ -149,7 +174,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
