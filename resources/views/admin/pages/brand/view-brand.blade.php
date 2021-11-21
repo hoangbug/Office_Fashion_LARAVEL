@@ -361,9 +361,13 @@ aria-hidden="true">
                         }
                     });
                 }
-                dataBrand.ajax.reload(null, false);
+                setTimeout(setTimeLoad, 1000);
             }
         });
+
+        function setTimeLoad(){
+            dataBrand.ajax.reload(null, false);
+        }
 
         //* delete brand
         $(document).on('click', '.delete-brand', function (){
