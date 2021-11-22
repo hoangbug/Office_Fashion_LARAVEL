@@ -84,16 +84,22 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="{{ Request::is('admin/affiliate/*') ? 'active' : '' }}">
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
                     <span class="nav-label">Tiếp thị liên kết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="{{ route('partner.index') }}">Quản lý cộng tác viên</a>
                     </li>
+                    <li>
+                        <a href="{{ route('partner.index') }}">Quản lý tỉ lệ hoa hồng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('partner.index') }}">Quản lý các chương trình</a>
+                    </li>
                 </ul>
             </li>
-            <li class="{{ Request::is('admin/category') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/manage-cart') ? 'active' : '' }}">
                 <a href="{{ route('manage.cart.index') }}"><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
                     <span class="nav-label">Quản lý đơn hàng</span>
                 </a>

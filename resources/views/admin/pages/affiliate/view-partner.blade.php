@@ -28,9 +28,27 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row d-flex align-items-center bg-white m-0">
+                <div class="col-md-3">
+                    <label class="my-input">Từ ngày <i class="fa fa-arrow-right" aria-hidden="true"></i> đến ngày</label>
+                    <div id="date_range" class="form-control d-flex align-items-center justify-content-around text-center" style="cursor: pointer;">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                    <input type="hidden" id="start_date" value="" />
+                    <input type="hidden" id="end_date" value="" />
+                </div>
                 <div class="col-md-3 mt-25 mb-25">
-                    <label class="my-input" for="name-brand">Tên cộng tác viên</label>
-                    <input class="form-control" type="text" name="name-brand" id="name-brand" placeholder="Tên thương hiệu">
+                    <label class="my-input" for="status-partner">Trạng thái</label>
+                    <select name="status-partner" id="status-partner" class="form-control">
+                        <option value="0">-- Tất cả --</option>
+                        <option value="1">Chờ phê duyệt</option>
+                        <option value="2">Đang hoạt động</option>
+                        <option value="3">Đã khóa</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mt-25 mb-25">
+                    <label class="my-input" for="name-partner">Tìm kiếm Họ tên \ Email \ Sđt cộng tác viên</label>
+                    <input class="form-control" type="text" name="name-partner" id="name-partner" placeholder="Tìm kiếm Họ tên\Email\Sđt cộng tác viên">
                 </div>
                 <div class="col-md-3 mt-25 mb-25 custom-search">
                     <div class="input-group">
@@ -50,14 +68,14 @@
                        width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>STT</th>
                             <th>Ảnh đại diện</th>
                             <th>Họ tên</th>
                             <th>Email</th>
                             <th>Số điện thoại</th>
                             <th>Trạng thái</th>
-                            <th>Phê duyệt</th>
-                            <th>Xóa</th>
+                            <th>Ngày tạo</th>
+                            <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -181,37 +199,50 @@
         }, callbackDateRange);
 
         callbackDateRange(start, end);
-
+        var arrStatus = [0];
         var dataPartner = $('#partner-datatables').DataTable({
+            dom: 'rtp',
             processing: true,
             serverSide: true,
             responsive: true,
             searching: true,
             bPaginate: true,
-            "bStateSave": true,
-            "order": [[ 0, "asc" ]],
+            // "bStateSave": true,
+            autofill: true,
+            "order": [
+                [0, "ASC"]
+            ],
             ajax: {
                 url  : '{{ route('partner.index') }}',
                 type : 'GET',
                 data: function(param) {
                     param.start_date = $('#start_date').val();
                     param.end_date = $('#end_date').val();
+                    param.status = arrStatus.slice(-1)[0];
                 }
             },
             // "targets": 0,
-            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "All"]
+            ],
             // buttons: [
             //     'copy', 'csv', 'excel', 'pdf', 'print'
             // ],
             "oLanguage": {
-                "sLengthMenu": "Hiển thị _MENU_ đối tác",
-                "sZeroRecords": "Không tìm thấy đối tác nào",
-                "sInfo": "Hiển thị _START_ đến _END_ của _TOTAL_ đối tác",
+                "sLengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "sZeroRecords": "Không tìm thấy cộng tác viên nào",
+                // "sInfo": "Hiển thị _START_ đến _END_ của _TOTAL_ cộng tác viên",
                 // "sInfoEmpty": "Showing 0 to 0 of 0 records",
                 // "sInfoFiltered": "(filtered from _MAX_ total records)"
             },
             columns: [
-                {data: 'id', name: 'id'},
+                {
+                    data: 'id',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 {
                     data: 'avatar', render: function (data, type, row) {
                         return '<img src="{{ asset('storage/images/affiliate') }}/'+row.avatar+'" alt="" style="width:100px; height: 100px;">';
@@ -224,15 +255,22 @@
                 },
                 {data: 'email', name: 'email'},
                 {data: 'phone', name: 'phone'},
-                {data: 'status', name: 'status'},
                 {
-                    data: '', render: function (data, type, row) {
-                        return '<button type="button" class="btn btn-warning edit-partner" data-url='+ row.id +' data-toggle="modal" data-target="#updatePartner"><i class="fas fa-edit"></i></button>';
+                    data: 'status', render: function (data, type, row) {
+                        if(data == 1){
+                            return '<p class="text-warning mb-0">Chờ phê duyệt</p>';
+                        }else if(data == 2){
+                            return '<p class="text-success mb-0">Đang hoạt động</p>';
+                        }else if(data == 3){
+                            return '<p class="text-error mb-0">Đang khóa</p>';
+                        }
                     }
                 },
+                {data: 'created_at', name: 'created_at'},
                 {
                     data: '', render: function (data, type, row) {
-                        return '<button type="button" class="btn btn-danger delete-partner" data-toggle="modal" data-target="#destroyPartner" data-url='+ row.id +'><i class="fas fa-times-circle"></i></button>';
+                        return '<button type="button" class="btn btn-warning edit-partner" data-url='+ row.id +' data-toggle="modal" data-target="#updatePartner"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>\
+                        <button type="button" class="btn btn-danger delete-partner" data-toggle="modal" data-target="#destroyPartner" data-url='+ row.id +'><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                     }
                 }
             ]
@@ -248,19 +286,29 @@
             dataPartner.ajax.reload(null, false);
         });
 
-        $('input[type=search]').focus(function() {
-            $(this).select();
+        $(document).on('change', '#status-partner', function(){
+            var status = $(this).val();
+            if(status != ""){
+                arrStatus.push(Number(status));
+                dataPartner.ajax.reload(null, false);
+            }
         });
 
-        $('#status-partner').on('change', function(){
-            var valFilter = $("#status-partner").val();
-            $('#partner-datatables').DataTable().search(valFilter).draw();
+        $(document).on('click', '.search-store', function(){
+            var filter = $('#name-partner').val();
+            $('#datatables').DataTable().search(filter).draw();
         });
 
-        //* delete rose
-        $(document).on('click', '.delete-partner', function (e){
+        var arrPartnerId = [];
+        $(document).on('click', '.delete-partner', function (){
             var id = $(this).attr('data-url');
-            $('.confirm').click(function(){
+            if(id != ""){
+                arrPartnerId.push(Number(id));
+            }
+        });
+        $(document).on('click', '.confirm', function (){
+            var id = arrPartnerId.slice(-1)[0];
+            if(id != ""){
                 $.ajax({
                     type: "GET",
                     data: { id: id },
@@ -269,23 +317,52 @@
                         dataPartner.ajax.reload(null, false);
                     }
                 });
-            });
+            }
+        });
+        
+        $(document).on('click', '.edit-partner', function (){
+            var id = $(this).attr('data-url');
+            if(id != ""){
+                arrPartnerId.push(Number(id));
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('partner.edit') }}",
+                    data: { id : id },
+                    dataType: "html",
+                    success: function(data) {
+                        $('#load-detail').html(data);
+                    }
+                });
+            }
         });
 
-        // //* Edit record
-        $(document).on('click', '.edit-partner', function (e){
-            e.preventDefault();
+        $('.approve-partner').click(function(){
             var id = $(this).attr('data-url');
-            $.ajax({
-                type: "GET",
-                url: "{{ route('partner.edit') }}",
-                data: { id : id },
-                dataType: "html",
-                success: function(data) {
-                    $('#load-detail').html(data);
-                }
-            });
-        })
+            if(id != ""){
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('partner.approve') }}",
+                    data: { id: id },
+                    success: function() {
+                        dataPartner.ajax.reload(null, false);
+                    }
+                });
+            }
+        });
+
+        $('.lockup-partner').click(function(){
+            var id = $(this).attr('data-url');
+            if(id != ""){
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('partner.lockup') }}",
+                    data: { id: id },
+                    success: function() {
+                        dataPartner.ajax.reload(null, false);
+                    }
+                });
+            }
+        });
 
     });
 </script>

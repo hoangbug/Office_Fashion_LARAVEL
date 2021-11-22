@@ -187,7 +187,10 @@
                 }
             },
             // "targets": 0,
-            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "All"]
+            ],
             // buttons: [
             //     'copy', 'csv', 'excel', 'pdf', 'print'
             // ],
@@ -199,7 +202,12 @@
                 // "sInfoFiltered": "(filtered from _MAX_ total records)"
             },
             columns: [
-                {data: 'id', name: 'id'},
+                {
+                    data: 'id',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 {data: 'name', name: 'name'},
                 {data: 'phone', name: 'phone'},
                 {

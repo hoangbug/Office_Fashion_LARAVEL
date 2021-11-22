@@ -4856,21 +4856,11 @@
         /* color: #FD6120; */
     }
     
-    .btn-success {
-        font-size: 20px;
-        padding: 13px 15px;
-        margin: 20px 0;
-        color: #fff;
-        background-color: #28a745;
-        border-color: #28a745;
-        border-radius: 10px;
-    }
-    
     .btn-success:hover {
         color: #fff;
         background-color: #218838;
         border-color: #1e7e34;
-        padding: 13px 15px;
+        /* padding: 13px 15px; */
         -webkit-box-shadow: 0px 0px 38px 5px rgba(40, 167, 69, 1);
         -moz-box-shadow: 0px 0px 38px 5px rgba(40, 167, 69, 1);
         box-shadow: 0px 0px 38px 5px rgba(40, 167, 69, 1);
