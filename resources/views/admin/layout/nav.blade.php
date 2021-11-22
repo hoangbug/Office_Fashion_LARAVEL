@@ -89,7 +89,7 @@
                     <span class="nav-label">Tiếp thị liên kết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="maps_vector.html">Vector maps</a>
+                        <a href="{{ route('partner.index') }}">Quản lý cộng tác viên</a>
                     </li>
                 </ul>
             </li>

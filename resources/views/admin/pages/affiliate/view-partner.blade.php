@@ -1,0 +1,292 @@
+@extends('admin.layout.app')
+
+@section('title')
+    {{ trans('layout.admin.home.title') }}
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}">
+@endsection
+
+@section('script')
+
+@endsection
+@section('content')
+<div class="container-fluid mt-3">
+    <div class="col-md-12">
+        <div class="row mb-25">
+            <div class="col-md-4 p-0 d-flex align-items-center">
+                <h3 class="text-dark font-weight-700">Quản lý cộng tác viên</h3>
+            </div>
+            <div class="col-md-8 p-0 d-flex justify-content-end">
+                <a  href="" class="d-flex justify-content-end align-items-center" style="width: 60px;" data-toggle="modal" data-target="#addRowModal">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row d-flex align-items-center bg-white m-0">
+                <div class="col-md-3 mt-25 mb-25">
+                    <label class="my-input" for="name-brand">Tên cộng tác viên</label>
+                    <input class="form-control" type="text" name="name-brand" id="name-brand" placeholder="Tên thương hiệu">
+                </div>
+                <div class="col-md-3 mt-25 mb-25 custom-search">
+                    <div class="input-group">
+                        <button class="btn btn-info search-store" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="row mt-4">
+        <div class="col-md-12 mb-5 p-0">
+            <div class="table-responsive">
+                <table id="partner-datatables" class="display table table-striped table-hover" cellspacing="0"
+                       width="100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <th>Phê duyệt</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add new -->
+<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header no-bd">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold">
+                        Thêm mới</span>
+                    <span class="text-uppercase font-weight-bold text-info">
+                        Thương hiệu
+                    </span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="name-brand-create" class="my-input">Tên thương hiệu</label>
+                            <input type="text" id="name-brand-create" name="name-brand-create" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="images" class="my-input">Ảnh thương hiệu</label>
+                            <input type="file" class="form-control" id="images" name="images" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer no-bd">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" id="insert" class="btn btn-primary">Thêm mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit  -->
+<div class="modal fade" id="updateBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-uppercase font-weight-bold" id="exampleModalCenterTitle">Quản lý thương hiệu</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12" id="load-edit">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info update-brand" data-dismiss="modal">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal destroy -->
+<div class="modal fade" id="destroyBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase font-weight-700" id="exampleModalCenterTitle">Quản lý thương hiệu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Bạn có chắc chắn muốn xóa thương hiệu này không?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('after-js')
+<script>
+    $(document).ready(function () {
+        // Date ranger picker
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function callbackDateRange(start, end) {
+            $('#start_date').val(start.format('YYYY-MM-DD'));
+            $('#end_date').val(end.format('YYYY-MM-DD'));
+
+            $('#date_range span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+
+        $('#date_range').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, callbackDateRange);
+
+        callbackDateRange(start, end);
+
+        var dataPartner = $('#partner-datatables').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            searching: true,
+            bPaginate: true,
+            "bStateSave": true,
+            "order": [[ 0, "asc" ]],
+            ajax: {
+                url  : '{{ route('partner.index') }}',
+                type : 'GET',
+                data: function(param) {
+                    param.start_date = $('#start_date').val();
+                    param.end_date = $('#end_date').val();
+                }
+            },
+            // "targets": 0,
+            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            // buttons: [
+            //     'copy', 'csv', 'excel', 'pdf', 'print'
+            // ],
+            "oLanguage": {
+                "sLengthMenu": "Hiển thị _MENU_ đối tác",
+                "sZeroRecords": "Không tìm thấy đối tác nào",
+                "sInfo": "Hiển thị _START_ đến _END_ của _TOTAL_ đối tác",
+                // "sInfoEmpty": "Showing 0 to 0 of 0 records",
+                // "sInfoFiltered": "(filtered from _MAX_ total records)"
+            },
+            columns: [
+                {data: 'id', name: 'id'},
+                {
+                    data: 'avatar', render: function (data, type, row) {
+                        return '<img src="{{ asset('storage/images/affiliate') }}/'+row.avatar+'" alt="" style="width:100px; height: 100px;">';
+                    }
+                },
+                {
+                    data: '', render: function (data, type, row) {
+                        return ''+row.firstname+' '+row.lastname+'';
+                    }
+                },
+                {data: 'email', name: 'email'},
+                {data: 'phone', name: 'phone'},
+                {data: 'status', name: 'status'},
+                {
+                    data: '', render: function (data, type, row) {
+                        return '<button type="button" class="btn btn-warning edit-partner" data-url='+ row.id +' data-toggle="modal" data-target="#updatePartner"><i class="fas fa-edit"></i></button>';
+                    }
+                },
+                {
+                    data: '', render: function (data, type, row) {
+                        return '<button type="button" class="btn btn-danger delete-partner" data-toggle="modal" data-target="#destroyPartner" data-url='+ row.id +'><i class="fas fa-times-circle"></i></button>';
+                    }
+                }
+            ]
+        });
+
+        // data.on( 'order.dt search.dt', function () {
+        //     data.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+        //         cell.innerHTML = i+1;
+        //     } );
+        // } ).draw();
+
+        $('#date_range').on('apply.daterangepicker', function(event, picker) {
+            dataPartner.ajax.reload(null, false);
+        });
+
+        $('input[type=search]').focus(function() {
+            $(this).select();
+        });
+
+        $('#status-partner').on('change', function(){
+            var valFilter = $("#status-partner").val();
+            $('#partner-datatables').DataTable().search(valFilter).draw();
+        });
+
+        //* delete rose
+        $(document).on('click', '.delete-partner', function (e){
+            var id = $(this).attr('data-url');
+            $('.confirm').click(function(){
+                $.ajax({
+                    type: "GET",
+                    data: { id: id },
+                    url: "{{ route('partner.delete') }}",
+                    success: function() {
+                        dataPartner.ajax.reload(null, false);
+                    }
+                });
+            });
+        });
+
+        // //* Edit record
+        $(document).on('click', '.edit-partner', function (e){
+            e.preventDefault();
+            var id = $(this).attr('data-url');
+            $.ajax({
+                type: "GET",
+                url: "{{ route('partner.edit') }}",
+                data: { id : id },
+                dataType: "html",
+                success: function(data) {
+                    $('#load-detail').html(data);
+                }
+            });
+        })
+
+    });
+</script>
+@endsection
