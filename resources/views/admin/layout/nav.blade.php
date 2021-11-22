@@ -48,21 +48,15 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="{{ Request::is('admin/discount-code/*') ? 'active' : '' }}">
                 <a href="javascript:;"><i class="sidebar-item-icon ti-gift"></i>
                     <span class="nav-label">Mã khuyến mại</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="charts_flot.html">Flot Charts</a>
+                        <a href="{{route('discount.index')}}">Chương trình khuyến mại</a>
                     </li>
                     <li>
-                        <a href="charts_morris.html">Morris Charts</a>
-                    </li>
-                    <li>
-                        <a href="chartjs.html">Chart.js</a>
-                    </li>
-                    <li>
-                        <a href="charts_sparkline.html">Sparkline Charts</a>
+                        <a href="{{ route('discount.add')}}">Thêm mới mã giảm giá</a>
                     </li>
                 </ul>
             </li>
