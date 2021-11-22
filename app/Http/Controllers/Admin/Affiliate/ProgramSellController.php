@@ -57,7 +57,8 @@ class ProgramSellController extends Controller
     }
 
     public function viewAdd(Request $request){
-        $category = Category::select('id', 'name_cate')->where('status', 1)->get()->toArray();
+        // $category = Category::select('id', 'name_cate')->where('status', 1)->get()->toArray();
+        $category = DB::table('categories')->join('commission_rates', 'categories.id', '=', 'commission_rates.category_id')->select('categories.id', 'categories.name_cate', 'commission_rates.rose_old', 'commission_rates.rose_new')->where('categories.status', 1)->get()->toArray();
         return view('admin/pages/affiliate/pages.add-program',[
             'category' => $category
         ]);
