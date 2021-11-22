@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
-use App\Http\Requests\Admin\StoreCateBlogsRequest;
 use App\Http\Requests\Admin\UpdateCateBlogsRequest;
 use App\Services\BlogService;
 use Illuminate\Contracts\Foundation\Application;
@@ -55,18 +54,17 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request): JsonResponse
     {
-        dd($request->all());
-//        try {
-//            $data = $this->categoryBlogService->create($request);
-//            if($data) {
-//                return $this->response(HTTP_SUCCESS, trans('messages.blog.category.create_success'));
-//            }
-//            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.create_failed'));
-//
-//        } catch (\Exception $e) {
-//            logger($e->getMessage());
-//            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.create_failed'));
-//        }
+        try {
+            $data = $this->blogService->create($request);
+            if($data) {
+                return $this->response(HTTP_SUCCESS, trans('messages.blog.blogs.create_success'));
+            }
+            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.blogs.create_failed'));
+
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.blogs.create_failed'));
+        }
     }
 
     /**
