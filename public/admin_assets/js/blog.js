@@ -41,10 +41,20 @@ $(document).ready(function() {
                 }
             },
             {
-                data: 'title', name: 'title'
+                data: 'title', render: function (data, type, row) {
+                    if(row.title.length > 100){
+                        return row.title.substring(0, 100) + '...' ;
+                    }
+                    return row.title;
+                }
             },
             {
-                data: 'description', name: 'description'
+                data: 'description', render: function (data, type, row) {
+                    if(row.description.length > 100){
+                        return row.description.substring(0, 100) + '...' ;
+                    }
+                    return row.description;
+                }
             },
             {
                 data: 'views', name: 'views'
@@ -85,7 +95,6 @@ $(document).ready(function() {
                 if (response.code === 200) {
                     notification('center', 'success', response.message, 500, false, 1500);
                     $('#addRowModal').modal('hide');
-                    $('#create-blog')[0].reset();
                     dataBlogs.ajax.reload(null, false);
                 } else {
                     notification('center', 'warning', response.message, 500, false, 1500);
@@ -105,6 +114,8 @@ $(document).ready(function() {
         if (Object.keys(data).length > 0) {
             $.each(data, function (index, value) {
                 $(workspace).find(`input[name="${index}"]`).addClass('border-error');
+                $(workspace).find(`select[name="${index}"]`).addClass('border-error');
+                $(workspace).find(`textarea[name="${index}"]`).addClass('border-error');
                 $(workspace).find(`.error_${index}`).append(`
                      <div class="error-text">${value[0]}</div>
                 `);
@@ -112,8 +123,15 @@ $(document).ready(function() {
         }
     }
 
+    $(document).on('click', '.create-blog', function () {
+        $('#create-blog')[0].reset();
+        CKEDITOR.instances["ckeditor"].setData('');
+    });
+
     $(document).on('click', '#insert', function(){
         const form = new FormData($('#create-blog')[0]);
+        let content_blog = CKEDITOR.instances["ckeditor"].getData();
+        form.append('content_blog', content_blog);
         insertblog(form);
     });
 

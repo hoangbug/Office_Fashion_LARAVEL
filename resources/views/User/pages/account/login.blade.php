@@ -1,4 +1,7 @@
 @extends('index')
+@section('cssPage')
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+@endsection
 @section('content')
   <!--================Login Box Area =================-->
 	<section class="login_box_area section-margin">
@@ -18,18 +21,21 @@
 						<h3>Đăng nhập</h3>
 						<form class="row login_form" method="POST" action="{{ route('login') }}" id="contactForm" >
                             @csrf
+                            @if(session()->has('login_failed'))
+                                <div class="col-md-12 alert alert-danger">{{ session()->get('login_failed') }}</div>
+                            @endif
 							<div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
 							</div>
+                            @error('email')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
 							<div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 							</div>
-							{{-- <div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div> --}}
+                            @error('password')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
 							<div class="col-md-12 form-group">
 								<button type="submit" class="button button-login w-100">Đăng nhập</button>
 								<a href="#">Quên mật khẩu?</a>

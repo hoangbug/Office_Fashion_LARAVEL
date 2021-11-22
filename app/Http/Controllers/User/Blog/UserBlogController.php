@@ -25,6 +25,33 @@ class UserBlogController extends Controller
      */
     public function index(Request $request)
     {
-        return view('User.pages.blog.index');
+        $cateBlog = $this->blogService->getListCateBlogs();
+        $blogs = $this->blogService->getBlogAll();
+        return view('User.pages.blog.index')->with(
+            [
+                'cateBlog' => $cateBlog->take(3),
+                'blogs' => $blogs
+            ]
+        );
+    }
+
+    public function show($id)
+    {
+        try {
+            $blog = $this->blogService->getById($id);
+            if(!$blog) {
+                abort(404);
+            }
+            return view('User.pages.blog.detail')->with(
+                [
+                    'blog' => $blog
+                ]
+            );
+
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            abort(404);
+            return false;
+        }
     }
 }

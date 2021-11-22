@@ -20,7 +20,7 @@
                     <h3 class="text-dark font-weight-700">Quản lý bài viết</h3>
                 </div>
                 <div class="col-md-8 p-0 d-flex justify-content-end">
-                    <a href="" class="d-flex justify-content-end align-items-center" style="width: 60px;" data-toggle="modal" data-target="#addRowModal">
+                    <a href="" class="d-flex justify-content-end align-items-center create-blog" style="width: 60px;" data-toggle="modal" data-target="#addRowModal">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </div>

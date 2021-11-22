@@ -385,5 +385,6 @@ Route::group(['prefix' => ''], function () {
 
     Route::group(['prefix' => 'blogs'], function () {
         Route::get('/', 'User\Blog\UserBlogController@index')->name('blog.user.index');
+        Route::get('/{id}', 'User\Blog\UserBlogController@show')->name('blog.user.show');
     });
 });
