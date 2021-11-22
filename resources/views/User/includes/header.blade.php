@@ -16,7 +16,7 @@
                         <button>
                             <i class="fas fa-luggage-cart" style="font-size: 32px; color: #f53d2d;"></i>
                             <span class="nav-shop__circle" style="font-size: 15px; padding: 1px 9px; top: -13px; right: -24px;">3</span>
-                        </button> 
+                        </button>
                     </li>
                 </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -44,7 +44,7 @@
                         <li class="nav-item {{ Request::is('mix-fashion', 'mix-fashion/*') ? 'active' : '' }}">
                             <a href="{{ route('fashion.directional') }}" class="nav-link">Phối đồ</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('blog.user.index') }}">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('affiliate.introduce') }}">Affiliate</a></li>
                     </ul>
                 </div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <ul class="nav navbar-nav menu_nav ml-auto mr-auto" id="user-pc">
                     @if(session()->has('member_id'))
                     <li class="nav-item active submenu dropdown">

@@ -383,4 +383,7 @@ Route::group(['prefix' => ''], function () {
     //* link code affiliate
     Route::get('/affiliate/{partner}/{program}/{sca_key}','User\Affiliate\AffiliateController@getLink')->name('affiliate.link');
 
+    Route::group(['prefix' => 'blogs'], function () {
+        Route::get('/', 'User\Blog\UserBlogController@index')->name('blog.user.index');
+    });
 });

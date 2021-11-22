@@ -37,14 +37,14 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-newspaper-o" aria-hidden="true"></i>
+                <a href="javascript:;" class="{{ Route::is('category-blog.index') ? 'active' : null }}"><i class="sidebar-item-icon fa fa-table"></i>
                     <span class="nav-label">Quản lý bài viết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="table_basic.html">Basic Tables</a>
+                        <a href="{{ route('category-blog.index') }}">Danh mục bài viết</a>
                     </li>
                     <li>
-                        <a href="datatables.html">Datatables</a>
+                        <a href="{{ route('blog.index') }}">Quản lý bài viết</a>
                     </li>
                 </ul>
             </li>
