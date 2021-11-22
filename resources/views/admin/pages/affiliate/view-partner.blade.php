@@ -86,86 +86,32 @@
         </div>
     </div>
 </div>
-
-<!-- Modal add new -->
-<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px">
-        <div class="modal-content">
-            <div class="modal-header no-bd">
-                <h5 class="modal-title">
-                    <span class="fw-mediumbold">
-                        Thêm mới</span>
-                    <span class="text-uppercase font-weight-bold text-info">
-                        Thương hiệu
-                    </span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="name-brand-create" class="my-input">Tên thương hiệu</label>
-                            <input type="text" id="name-brand-create" name="name-brand-create" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="images" class="my-input">Ảnh thương hiệu</label>
-                            <input type="file" class="form-control" id="images" name="images" accept="image/*">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer no-bd">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" id="insert" class="btn btn-primary">Thêm mới</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal edit  -->
-<div class="modal fade" id="updateBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Modal approval -->
+<div class="modal fade" id="updatePartner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title text-uppercase font-weight-bold" id="exampleModalCenterTitle">Quản lý thương hiệu</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12" id="load-edit">
-
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info update-brand" data-dismiss="modal">Cập nhật</button>
-            </div>
+        <div class="modal-content" id="load-detail">
+            
         </div>
     </div>
 </div>
 
 <!-- Modal destroy -->
-<div class="modal fade" id="destroyBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="destroyPartner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-uppercase font-weight-700" id="exampleModalCenterTitle">Quản lý thương hiệu</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h6>Bạn có chắc chắn muốn xóa thương hiệu này không?</h6>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xác nhận</button>
-            </div>
+        <div class="modal-header">
+            <h4 class="modal-title text-uppercase font-weight-700" id="exampleModalCenterTitle">Quản lý cộng tác viên</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h6 class="font-weight-600">Bạn có chắc chắn muốn khóa cộng tác viên này không?</h6>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-danger confirm">Xác nhận</button>
+        </div>
         </div>
     </div>
 </div>

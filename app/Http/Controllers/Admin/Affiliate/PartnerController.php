@@ -60,9 +60,14 @@ class PartnerController extends Controller
     {
         if(request()->ajax()){
             if(!empty($request->id) && is_numeric($request->id)){
-                $data = DB::table('affiliate_partners')->select('*')->where('id', '=', $request->id)->get()->toArray();
-                
-                return view('admin/pages/affiliate.edit-partner',[
+                $data = AffiliatePartner::select('*')->where('id', $request->id)->get()->toArray();
+                if(!empty($data)){
+                    foreach($data as $key => $value){
+                        $data[$key]['created_at'] = date('d-m-Y', strtotime($value['created_at']));
+                        $data[$key]['updated_at'] = date('d-m-Y', strtotime($value['updated_at']));
+                    }
+                }
+                return view('admin/pages/affiliate/pages.edit-partner',[
                     'data' => $data
                 ]);
             }
