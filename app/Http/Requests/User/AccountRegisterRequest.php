@@ -25,12 +25,13 @@ class AccountRegisterRequest extends FormRequest
     {
         return [
             //
-            'email' => 'required|email',
-            'password' => 'required|min:8',
+            'email' => 'required|email|unique:members',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'name' => 'required',
             'address' => 'required',
-            'phone' => 'required|min:10|max:150',
+            'phone' => 'required|regex:/^0[1-9]{8}$/|unique:members',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password'
         ];
     }
 }

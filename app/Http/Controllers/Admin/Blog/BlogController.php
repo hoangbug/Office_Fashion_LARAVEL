@@ -3,42 +3,105 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Blog\CreateBlogRequest;
-use App\Models\Admin\Blog\Blog;
-use App\Repositories\Blog\BlogRepository;
-use App\Repositories\CategoryBlog\CategoryBlogRepository;
-use App\Traits\HandleImage;
+use App\Http\Requests\Admin\StoreBlogRequest;
+use App\Http\Requests\Admin\StoreCateBlogsRequest;
+use App\Http\Requests\Admin\UpdateCateBlogsRequest;
+use App\Services\BlogService;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class BlogController extends Controller
 {
-    use HandleImage;
+    protected $blogService;
 
-    protected $blogRepository , $categoryBlogRepository;
-
-    public function __construct(BlogRepository $blogRepository, CategoryBlogRepository $categoryBlogRepository)
+    public function __construct(
+        BlogService $blogService
+    )
     {
-        $this->blogRepository = $blogRepository;
-        $this->categoryBlogRepository = $categoryBlogRepository;
+        $this->blogService = $blogService;
     }
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application
+     */
+    public function index(Request $request)
     {
-        $categoryBlogs = $this->categoryBlogRepository->getAll();
-        return view('admin.pages.blog.index', compact('categoryBlogs'));
+        if(request()->ajax()) {
+            $data = $this->blogService->getListBlogs($request);
+            return $this->datatables($data);
+        }
+        $cateBlog = $this->blogService->getListCateBlogs();
+        return view('admin.pages.blog.index')->with(
+            [
+                'cateBlog' =>  $cateBlog
+            ]
+        );
     }
 
-    public function store(CreateBlogRequest $request)
+    public function datatables($data)
     {
-        $this->blogRepository->create($request);
-        return $this->response(201, 'Thêm blog mới thành công!');
+        return Datatables::of($data)->make(true);
     }
 
-    public function getList(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreBlogRequest $request
+     * @return JsonResponse
+     */
+    public function store(StoreBlogRequest $request): JsonResponse
     {
-        $blogs = $this->blogRepository->search($request);
-        return view('admin.pages.blog.list', compact('blogs'));
+        dd($request->all());
+//        try {
+//            $data = $this->categoryBlogService->create($request);
+//            if($data) {
+//                return $this->response(HTTP_SUCCESS, trans('messages.blog.category.create_success'));
+//            }
+//            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.create_failed'));
+//
+//        } catch (\Exception $e) {
+//            logger($e->getMessage());
+//            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.create_failed'));
+//        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function edit(int $id): JsonResponse
+    {
+        $cateBlogs = $this->categoryBlogService->getById($id);
+        $code = HTTP_SUCCESS;
+        if (!$cateBlogs) {
+            $code = HTTP_STATUS_PAGE['NOT_FOUND'];
+        }
+        $view = view('admin.pages.category-blog.show', compact('cateBlogs'))->render();
+        return $this->response($code, null, $view);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateCateBlogsRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateCateBlogsRequest $request, int $id): JsonResponse
+    {
+        try {
+            $this->categoryBlogService->update($id, $request);
+            return $this->response(HTTP_SUCCESS, trans('messages.blog.category.update_success'));
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.update_failed'));
+        }
     }
 
     /**
@@ -49,8 +112,12 @@ class BlogController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $this->blogRepository->destroy($id);
-        return $this->response(200, 'Xóa blog thành công!');
-
+        try {
+            $this->categoryBlogService->destroy($id);
+            return $this->response(HTTP_SUCCESS, trans('messages.blog.category.delete_success'));
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return $this->response(HTTP_STATUS_PAGE['SERVER_ERROR'], trans('messages.blog.category.delete_failed'));
+        }
     }
 }

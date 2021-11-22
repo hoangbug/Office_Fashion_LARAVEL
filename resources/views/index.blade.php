@@ -3,6 +3,7 @@
 
 <head>
     @include('User/includes.head')
+    @yield('cssPage')
 </head>
 
 <body>
@@ -29,7 +30,7 @@
     </footer>
     <!--================ End footer Area  =================-->
     @endif
-     
+
     @include('User/includes.script')
 </body>
 

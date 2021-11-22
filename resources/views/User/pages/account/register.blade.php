@@ -1,4 +1,9 @@
 @extends('index')
+
+@section('cssPage')
+    <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
+@endsection
+
 @section('content')
     <!--================Login Box Area =================-->
     <section class="login_box_area section-margin section-register">
@@ -19,46 +24,61 @@
                         <form class="row login_form" method="POST" action="{{ route('register')}}" enctype="multipart/form-data" id="register_form">
                             @csrf
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên"
+                                <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="Họ và tên"
                                     onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'">
                             </div>
+                            @error('name')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
                                 <div class="custom-file mb-3">
                                     <input type="file" class="custom-file-input" id="avatar" name="avatar" accept="image/*">
-                                    <label class="custom-file-label text-left" for="avatar" style="color: #999">Avatar</label>
+                                    <label class="custom-file-label text-left" for="avatar" style="color: #999">Ảnh đại diện</label>
                                 </div>
                             </div>
+                            @error('avatar')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
-                                <input type="email" class="form-control" id="email" name="email"
+                                <input type="email" class="form-control" id="email" value="{{old('email')}}" name="email"
                                     placeholder="Email" onfocus="this.placeholder = ''"
                                     onblur="this.placeholder = 'Email Address'">
                             </div>
+                            @error('email')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="address" name="address"
+                                <input type="text" class="form-control" id="address" value="{{old('address')}}" name="address"
                                     placeholder="Địa chỉ" onfocus="this.placeholder = ''"
                                     onblur="this.placeholder = 'Address'">
                             </div>
+                            @error('address')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="phone" name="phone"
+                                <input type="number" class="form-control" id="phone" value="{{old('phone')}}" name="phone"
                                     placeholder="Số điện thoại" onfocus="this.placeholder = ''"
                                     onblur="this.placeholder = 'Phone'">
                             </div>
+                            @error('phone')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control" id="password" value="{{old('password')}}" name="password"
                                     placeholder="Mật khẩu" onfocus="this.placeholder = ''"
                                     onblur="this.placeholder = 'Password'">
                             </div>
+                            @error('password')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                <input type="password" class="form-control" id="confirmPassword" value="{{old('password_confirmation')}}" name="password_confirmation"
                                     placeholder="Xác nhận mật khẩu" onfocus="this.placeholder = ''"
                                     onblur="this.placeholder = 'Confirm Password'">
                             </div>
-                            {{-- <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Keep me logged in</label>
-                                </div>
-                            </div> --}}
+                            @error('password_confirmation')
+                            <div class="error-text">{{ $message }}</div>
+                            @enderror
                             <div class="col-md-12 form-group">
                                 <button type="submit" class="button button-register w-100">Đăng ký</button>
                             </div>
@@ -69,7 +89,7 @@
         </div>
     </section>
     <!--================End Login Box Area =================-->
-   
+
 @endsection
 @section('ajax')
 <script>

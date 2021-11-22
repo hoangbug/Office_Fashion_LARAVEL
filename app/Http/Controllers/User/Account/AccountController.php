@@ -18,33 +18,27 @@ class AccountController extends Controller
 {
     public function view_login()
     {
-        return view('User/pages/account.login');
+        return view('User.pages.account.login');
     }
 
     public function view_register()
     {
-        return view('User/pages/account.register');
+        return view('User.pages.account.register');
     }
 
     public function register(AccountRegisterRequest $request)
     {
-        $member = Member::query()->where('email', $request->email)->where('phone', $request->phone)->first();
-
-        if (empty($member->email) && empty($member->phone)) {
-            $image = $request->file('avatar')->hashName();
-            Storage::putFile('public/images/avatar', $request->file('avatar'));
-            $member = Member::create([
-                'avatar' => $image,
-                'name' => $request->name,
-                'address' => $request->address,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            return redirect()->route('login-view');
-        } else {
-            return redirect()->back();
-        }
+        $image = $request->file('avatar')->hashName();
+        Storage::putFile('public/images/avatar', $request->file('avatar'));
+        $member = Member::create([
+            'avatar' => $image,
+            'name' => $request->name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->route('login-view');
     }
     public function login(AccountLoginRequest $request)
     {
@@ -54,7 +48,7 @@ class AccountController extends Controller
                 return redirect()->back();
             } else {
                 session()->put('member_id', $member->id);
-                
+
                 if(session()->has('checkout-login')){
                     session()->forget('checkout-login');
                     return redirect()->route('checkout.index');
@@ -66,7 +60,7 @@ class AccountController extends Controller
             return redirect()->back();
         }
     }
-    
+
     public function logout()
     {
         session()->forget('member_id');
@@ -110,7 +104,7 @@ class AccountController extends Controller
                 if($request->hasFile('avatar')){
                     $image = $request->file('avatar')->hashName();
                     Storage::putFile('public/images/avatar', $request->file('avatar'));
-                    
+
                     $member = Member::select('avatar')->where('id', '=', session('member_id'))->get()->toArray();
                     if(!empty($member)){
                     $des_path = 'storage/images/avatar/' . $member[0]['avatar'];
@@ -139,7 +133,7 @@ class AccountController extends Controller
             if (session()->has('member_id')) {
                 $checkPhone = Member::select('id', 'phone')->where('id', '=', session('member_id'))->where('phone', $request->phone)->get()->toArray();
                 $checkMail = Member::select('id', 'email')->where('id', '=', session('member_id'))->where('email', $request->email)->get()->toArray();
-                
+
                 $member = Member::find(session('member_id'));
                 $member->name = $request->name;
                 $member->address = $request->address;

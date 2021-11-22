@@ -27,8 +27,8 @@ class HomeController extends Controller
             $dataMember = DB::table('members')->select(DB::raw('COUNT(id) as total'))->where('created_at', 'LIKE', '%'.$presentMonth.'%')->get()->toArray();
             $dataOrder = DB::table('orders')->select(DB::raw('COUNT(id) as total'))->where('created_at', 'LIKE', '%'.$presentMonth.'%')->get()->toArray();
             $dataPartner = DB::table('affiliate_partners')->select(DB::raw('COUNT(id) as total'))->where('created_at', 'LIKE', '%'.$presentMonth.'%')->get()->toArray();
-            
-            
+
+
             return view('admin/pages/home/pages.overall-statistics', [
                 'dataMember' => $dataMember,
                 'dataOrder' => $dataOrder,
@@ -37,7 +37,7 @@ class HomeController extends Controller
         }
     }
 
-    public function loadSales()  
+    public function loadSales()
     {
         if (request()->ajax()) {
             $presentMonth = Carbon::now()->month;
@@ -56,7 +56,7 @@ class HomeController extends Controller
         }
     }
 
-    public function loadMonthsale()  
+    public function loadMonthsale()
     {
         if (request()->ajax()) {
             $presentYear = Carbon::now()->year;

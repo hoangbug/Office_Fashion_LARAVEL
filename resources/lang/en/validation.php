@@ -133,6 +133,48 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'name' => [
+            'required' => 'Vui lòng nhập tên.'
+        ],
+        'email' => [
+            'required' => 'Vui lòng nhập email.',
+            'email' => 'Email không đúng định dạng.',
+            'unique' => 'Email này đã được đăng ký.'
+        ],
+        'avatar' => [
+            'required' => 'Vui lòng chọn ảnh đại diện.',
+            'image' => 'Hình ảnh không đúng định dạng.',
+            'mimes' => 'Vui lòng lựa chọn định dạng : jpeg,png,jpg,gif,svg.'
+        ],
+        'image' => [
+            'required' => 'Vui lòng chọn ảnh.',
+            'image' => 'Hình ảnh không đúng định dạng.',
+            'mimes' => 'Vui lòng lựa chọn định dạng : jpeg,png,jpg,gif,svg.'
+        ],
+
+        'address' => [
+            'required' => 'Vui lòng nhập địa chỉ.',
+        ],
+
+        'phone' => [
+            'required' => 'Vui lòng nhập số điện thoại.',
+            'regex' => 'Số điện thoại không đúng định dạng.',
+            'unique' => 'Số điện thoại đã được sử dụng.'
+        ],
+        'password' => [
+            'required' => 'Vui lòng nhập mật khẩu.',
+            'min' => 'Vui lòng nhập mật khẩu tối thiểu 8 ký tự.',
+        ],
+        'password_confirmation' => [
+            'required' => 'Vui lòng nhập xác nhận mật khẩu.',
+            'same' => 'Xác nhận mật khẩu không trùng khớp.',
+        ],
+        'name_cate' => [
+            'required' => 'Vui lòng nhập tên danh mục.',
+            'max' => 'Vui lòng nhập mật khẩu tối đa 150 ký tự.',
+            'unique' => 'Tên danh mục đã được sử dụng.'
+        ]
+
     ],
 
     /*
