@@ -32,7 +32,7 @@
                         <option value="" hidden>Chọn danh mục</option>
                         @if(isset($category) && !empty($category))
                             @foreach ($category as $val)
-                                <option value="{{ $val['id'] }}">{{ $val['name_cate'] }}</option>
+                                <option value="{{ $val->id }}">{{ $val->name_cate }}</option>
                             @endforeach
                         @endif
                     </select>
@@ -103,14 +103,23 @@
                         var arr = Object.keys(data).map(key => data[key]);
                         dataRose.push(arr[0][0]);
                         dataProduct.push(arr[1]);
-                        $('#rose_old').val(dataRose[0]['rose_old']+' %');
-                        $('#rose_new').val(dataRose[0]['rose_new']+' %');
-                        var option = '';
-                        for(let i = 0; i < dataProduct.length; i++){
-                            $.each(dataProduct[i], function(key, val){
-                                option += '<option value="' + val['id'] + '">' + val['name'] + '</option>';
-                                $('select[name="product"]').html(option);
-                            });
+                        if(dataRose.length === 0){
+                            $('#rose_old').val('');
+                            $('#rose_new').val('');
+                        }else{
+                            $('#rose_old').val(dataRose[0]['rose_old']+' %');
+                            $('#rose_new').val(dataRose[0]['rose_new']+' %');
+                        }
+                        if(dataProduct.length === 0){
+                            $('select[name="product"]').html('');
+                        }else{
+                            var option = '';
+                            for(let i = 0; i < dataProduct.length; i++){
+                                $.each(dataProduct[i], function(key, val){
+                                    option += '<option value="' + val['id'] + '">' + val['name'] + '</option>';
+                                    $('select[name="product"]').html(option);
+                                });
+                            }
                         }
                     }
                 });
