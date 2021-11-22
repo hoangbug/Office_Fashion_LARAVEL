@@ -20,15 +20,16 @@ class ProductWomenController extends Controller
     public function index()
     {
         $gender = 2;
-        $women = Cache::remember('women', 900, function () use($gender) {
-            return Product::select('products.id', 'products.name', 'products.main_image', 'products.price', 'products.sale', 'products.status')->join('categories', 'products.category_id', '=', 'categories.id')->where('products.status', '<>', 5, 'and', 'categories.gender_product', '=', $gender)->orderBy('products.id', 'DESC')->paginate(15);
-        });
+        $women = Product::select('products.id', 'products.name', 'products.main_image', 'products.price', 'products.sale', 'products.status')->join('categories', 'products.category_id', '=', 'categories.id')->where('products.status', '<>', 5, 'and', 'categories.gender_product', '=', $gender)->orderBy('products.id', 'DESC')->paginate(15);
+        // $women = Cache::remember('women', 900, function () use($gender) {
+        //     return Product::select('products.id', 'products.name', 'products.main_image', 'products.price', 'products.sale', 'products.status')->join('categories', 'products.category_id', '=', 'categories.id')->where('products.status', '<>', 5, 'and', 'categories.gender_product', '=', $gender)->orderBy('products.id', 'DESC')->paginate(15);
+        // });
 
         // dd($women);
-        $cart = Cart::count();
+        // $cart = Cart::count();
         return view('User/pages/product.women-product', [
             'data' => $women,
-            'count' => $cart,
+            // 'count' => $cart,
             'gender' => $gender,
         ]);
     }
@@ -63,21 +64,24 @@ class ProductWomenController extends Controller
     public function show($id)
     {
         $detailWomen = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')->join('brands', 'products.brand_id', '=', 'brands.id')->select('products.id', 'products.category_id', 'products.name', 'products.main_image', 'products.price', 'products.sale', 'products.description', 'categories.name_cate', 'brands.name_brand')->where('products.id', '=', $id)->orderBy('products.id', 'DESC')->get()->toArray();
+        if(!empty($detailWomen)){
+            $detailSize = DB::table('detail_sizes')->select('detail_sizes.id', 'detail_sizes.name_size', 'detail_sizes.quantity')->where('detail_sizes.product_id', '=', $id)->get()->toArray();
 
-        $detailSize = DB::table('detail_sizes')->select('detail_sizes.id', 'detail_sizes.name_size', 'detail_sizes.quantity')->where('detail_sizes.product_id', '=', $id)->get()->toArray();
+            $detailImage = DB::table('detail_images')->select('detail_images.id', 'detail_images.sub_image')->where('detail_images.product_id', '=', $id)->get()->toArray();
 
-        $detailImage = DB::table('detail_images')->select('detail_images.id', 'detail_images.sub_image')->where('detail_images.product_id', '=', $id)->get()->toArray();
-
-        $comments = Comment::select('comments.*', 'members.avatar', 'members.name AS member_name', 'members.email AS member_email')->leftJoin('members', 'members.id', '=', 'comments.member_id')->where('product_id', '=', $id)->orderBy('id', 'DESC')->paginate(3);
-        $cart = Cart::count();
-        
-        return view('User/pages/product.detail-product',[
-            'detailWomen' => $detailWomen,
-            'detailSize' => $detailSize,
-            'detailImage' => $detailImage,
-            'count' => $cart,
-            'dataComment' => $comments,
-        ]);
+            $comments = Comment::select('comments.*', 'members.avatar', 'members.name AS member_name', 'members.email AS member_email')->leftJoin('members', 'members.id', '=', 'comments.member_id')->where('product_id', '=', $id)->orderBy('id', 'DESC')->paginate(3);
+            // $cart = Cart::count();
+            
+            return view('User/pages/product.detail-product',[
+                'detailWomen' => $detailWomen,
+                'detailSize' => $detailSize,
+                'detailImage' => $detailImage,
+                // 'count' => $cart,
+                'dataComment' => $comments,
+            ]);
+        }else{
+            abort(404);
+        }
 
         
     }
@@ -96,12 +100,12 @@ class ProductWomenController extends Controller
 
         $detailImage = DB::table('detail_images')->select('detail_images.id', 'detail_images.sub_image')->where('detail_images.product_id', '=', $id)->get()->toArray();
 
-        $cart = Cart::count();
+        // $cart = Cart::count();
         return view('User/pages/product.modal-product',[
             'detailWomen' => $detailWomen,
             'detailSize' => $detailSize,
             'detailImage' => $detailImage,
-            'count' => $cart
+            // 'count' => $cart
         ]);
     }
 

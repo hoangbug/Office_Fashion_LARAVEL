@@ -19,7 +19,10 @@
 <script src="{{ asset('assets/vendors/jquery.ajaxchimp.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/mail-script.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('admin_assets/js/toastr.js') }}" type="text/javascript"></script>
+<script src="{{ asset('admin_assets/js/scripts/sweetalert2.js') }}" type="text/javascript"></script>
 
+<script src="{{ asset('admin_assets/js/custom.js') }}" type="text/javascript"></script>
 <script>
     $.ajaxSetup({
     headers: {
@@ -28,91 +31,54 @@
 });
 </script>
 <script>
-    $(document).ready(function(){
+    // $(document).ready(function(){
+        var arrProduct = [];
+        var sizeDefault = $('#sizeDefault').val();
+        var sizeProduct = 0;
 
-        $(document).on('keyup', '.search_input', function(){
-            var search = $(this).val();
-            if(search != ""){
-                $('#load-data-live').css({'opacity': '1'});
-                fetch_customer_data(search);
-            }else{
-                $('#load-data-live').css({'opacity': '0'});
-                $('#data-live-search').html("");
-            }
+        $(document).on('click', '.btn-size', function(e){
+            e.preventDefault();
+            $('.btn-size').removeClass('active-size');
+            $(this).toggleClass('active-size');
+
+            var size_id = $(this).attr('size_id');
+            var quantity = $(this).attr('quantitySize');
+            // $('#totalProduct').val(quantitySize);
+            $('.quantityProduct').html('Có '+quantity+' sản phẩm có sẵn');
+            sizeProduct = $(this).attr('nameSize');
+            $('#noti-checksize').html('');
+            $('#display-size').css({'background': '#fff'});
+            $('#c-size').css({'color': '#777'});
         });
-
-        function fetch_customer_data(search){
-            var arrData = [];
+        $(document).on('click', '.add-to-cart', function(e){
+            console.log(arrProduct);
+            var id = arrProduct.slice(-1)[0];
+            e.preventDefault();
+            var quantity = $('#sst').val();
+            
+            if(sizeProduct == "" && sizeDefault == 0){
+                $('#noti-checksize').html('Vui lòng chọn Size!');
+                $('#display-size').css({'background': '#ff8080'});
+                $('#c-size').css({'color': '#000'});
+            }else if(sizeDefault == 1){
+                sizeProduct = 1;
+            }
             $.ajax({
-                method: 'GET',
-                url: "{{ route('live_search.action') }}",
-                data: { search: search },
-                dataType: 'json',
-                success: function(data){
-                    var arr = Object.keys(data).map(key => data[key]);
-                    arrData.push(arr[0]);
-                    var option = '';
-                    var total = 0;
-                    for(let i = 0; i < arrData.length; i++){
-                        $.each(arrData[i], function(key, val){
-                            if((val['gender_product']) == 1){
-                                if((val['sale']) != 0){
-                                    total = (val['price']) * ((100 - (val['sale'])) / 100);
-                                    option += '<a href="/men/'+ val['id'] +'" class="list-group-item list-group-item-action">\
-                                                <div class="card flex-md-row mb-4 box-shadow" style="height: 100px">\
-                                                    <img class="card-img-right flex-auto d-none d-md-block" src="{{ asset('storage/images/product') }}/'+ val['main_image'] +'" alt="Card image cap" style="width: 200px">\
-                                                    <div class="card-body d-flex flex-column align-items-start">\
-                                                        <h5 class="mb-0">'+ val['name'] +'</h5>\
-                                                        <div class="mb-1 text-muted"><del>'+ val['price'].toLocaleString()+' VND</del></div>\
-                                                        <p class="card-text mb-auto">'+ total.toLocaleString() +' VND</p>\
-                                                    </div>\
-                                                </div>\
-                                            </a>';
-                                }else{
-                                    option += '<a href="/men/'+ val['id'] +'" class="list-group-item list-group-item-action">\
-                                            <div class="card flex-md-row mb-4 box-shadow" style="height: 100px">\
-                                                <img class="card-img-right flex-auto d-none d-md-block" src="{{ asset('storage/images/product') }}/'+ val['main_image'] +'" alt="Card image cap" style="width: 200px">\
-                                                <div class="card-body d-flex flex-column align-items-start">\
-                                                    <h5 class="mb-0">'+ val['name'] +'</h5>\
-                                                    <div class="mb-1 text-muted"></div>\
-                                                    <p class="card-text mb-auto">'+ val['price'].toLocaleString() +' VND</p>\
-                                                </div>\
-                                            </div>\
-                                            </a>';
-                                }
-                            }else if((val['gender_product']) == 2){
-                                if((val['sale']) != 0){
-                                    total = (val['price']) * ((100 - (val['sale'])) / 100);
-                                    option += '<a href="/women/'+ val['id'] +'" class="list-group-item list-group-item-action">\
-                                                <div class="card flex-md-row mb-4 box-shadow" style="height: 100px">\
-                                                    <img class="card-img-right flex-auto d-none d-md-block" src="{{ asset('storage/images/product') }}/'+ val['main_image'] +'" alt="Card image cap" style="width: 200px">\
-                                                    <div class="card-body d-flex flex-column align-items-start">\
-                                                        <h5 class="mb-0">'+ val['name'] +'</h5>\
-                                                        <div class="mb-1 text-muted"><del>'+ val['price'].toLocaleString() +' VND</del></div>\
-                                                        <p class="card-text mb-auto">'+ total.toLocaleString() +' VND</p>\
-                                                    </div>\
-                                                </div>\
-                                            </a>';
-                                }else{
-                                    option += '<a href="/women/'+ val['id'] +'" class="list-group-item list-group-item-action">\
-                                            <div class="card flex-md-row mb-4 box-shadow" style="height: 100px">\
-                                                <img class="card-img-right flex-auto d-none d-md-block" src="{{ asset('storage/images/product') }}/'+ val['main_image'] +'" alt="Card image cap" style="width: 200px">\
-                                                <div class="card-body d-flex flex-column align-items-start">\
-                                                    <h5 class="mb-0">'+ val['name'] +'</h5>\
-                                                    <div class="mb-1 text-muted"></div>\
-                                                    <p class="card-text mb-auto">'+ val['price'].toLocaleString() +' VND</p>\
-                                                </div>\
-                                            </div>\
-                                            </a>';
-                                }
-                            }
-                            $('#data-live-search').html(option);
-                        });
+                type: "GET",
+                url: "/cart/"+id,
+                data: {quantity: quantity, sizeProduct: sizeProduct, sizeDefault: sizeDefault},
+                success: function (data) {
+                    if(data == 1){
+                        notification('center', 'error', 'Bạn đã thêm số lượng tối đa của sản phẩm', 650, false, 2000);
+                    }else{
+                        $('#load-count').load(' .count-cart');
+                        notification('center', 'success', 'Sản phẩm đã được thêm vào giỏ hàng', 650, false, 2000);
                     }
                 }
             });
-        }
-    });
-    
+
+        });
+    // });
 </script>
+
 @yield('ajax')

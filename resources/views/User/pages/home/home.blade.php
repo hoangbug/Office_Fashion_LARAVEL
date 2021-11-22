@@ -94,9 +94,9 @@
                                     <ul class="card-product__imgOverlay">
                                         <li>
                                             @if(($value->gender_product) == 1)
-                                                <button type="button" class="modal-product" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ route('men.edit', $value->id) }}"><i class="ti-search"></i></button>
+                                                <button type="button" class="modal-product" data-id="{{ $value->id }}" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ route('men.edit', $value->id) }}"><i class="ti-search"></i></button>
                                             @elseif(($value->gender_product) == 2)
-                                                <button type="button" class="modal-product" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ route('women.edit', $value->id) }}"><i class="ti-search"></i></button>
+                                                <button type="button" class="modal-product" data-id="{{ $value->id }}" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ route('women.edit', $value->id) }}"><i class="ti-search"></i></button>
                                             @endif
                                         </li>
                                         <li>
@@ -359,31 +359,36 @@
 
 @section('ajax')
 <script>
-    $(document).on('click', '.update-view', function(){
-        var url = $(this).attr('data-url');
-        if(url != ''){
-            $.ajax({
-                type: "PATCH",
-                url: url,
-                success: function () {
-                }
-            });
-        }
-    });
+    $(document).ready(function(){
+        $(document).on('click', '.update-view', function(){
+            var url = $(this).attr('data-url');
+            if(url != ''){
+                $.ajax({
+                    type: "PATCH",
+                    url: url,
+                    success: function () {
+                    }
+                });
+            }
+        });
+        $(document).on('click', '.modal-product', function(){
+            var url = $(this).attr('data-url');
+            var id = $(this).attr('data-id');
+            if(url != '' && id != ""){
+                arrProduct.push(Number(id));
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    // data: { view: view },
+                    dataType: "html",
+                    success: function (data) {
+                        $('#view-modal').html(data);
+                    }
+                });
+            }
+        });
 
-    $(document).on('click', '.modal-product', function(){
-        var url = $(this).attr('data-url');
-        if(url != ''){
-            $.ajax({
-                type: "GET",
-                url: url,
-                // data: { view: view },
-                dataType: "html",
-                success: function (data) {
-                    $('#view-modal').html(data);
-                }
-            });
-        }
     });
+    
 </script>
 @endsection

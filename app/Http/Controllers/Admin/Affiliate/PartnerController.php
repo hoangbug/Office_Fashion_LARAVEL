@@ -13,24 +13,28 @@ class PartnerController extends Controller
     public function index(Request $request)
     {
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-
-                if(($start_date) == ($end_date)){
-                    $data = DB::table('affiliate_partners')->select('id', 'avatar', 'firstname', 'lastname', 'email', 'phone', 'status')->whereDate('affiliate_partners.created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = DB::table('affiliate_partners')->select('id', 'avatar', 'firstname', 'lastname', 'email', 'phone', 'status')->whereBetween('affiliate_partners.created_at', array($start_date, $end_date))->get()->toArray();
-                }
+            $request->validate([
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+                'status' => 'required|in:0,1,2,3',
+            ]);
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $status = $request->status;
+            if($status == 0){
+                $operatorStatus = '<>';
+            }else{
+                $operatorStatus = '=';
             }
-            foreach($data as $key => $value){
-                $status = $value->status;
-                if(($status) == 1){
-                    $data[$key]->status = 'Chờ phê duyệt';
-                }elseif(($status) == 2){
-                    $data[$key]->status = 'Đang hoạt động';
-                }elseif(($status) == 3){
-                    $data[$key]->status = 'Đang khóa';
+        
+            if(($start_date) == ($end_date)){
+                $data = AffiliatePartner::select('id', 'avatar', 'firstname', 'lastname', 'email', 'phone', 'status', 'created_at')->whereDate('created_at', '=', $start_date)->where('status', $operatorStatus, $status)->get()->toArray();
+            }else{
+                $data = AffiliatePartner::select('id', 'avatar', 'firstname', 'lastname', 'email', 'phone', 'status', 'created_at')->whereBetween('created_at', array($start_date, $end_date))->where('status', $operatorStatus, $status)->get()->toArray();
+            }
+            if(!empty($data)){
+                foreach($data as $key => $value){
+                    $data[$key]['created_at'] = date('d-m-Y', strtotime($value['created_at']));
                 }
             }
             return Datatables::of($data)->make(true);

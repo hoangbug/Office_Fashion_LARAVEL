@@ -85,8 +85,8 @@
                 <div class="form-group col-md-12 mb-0 mt-25 d-flex flex-column justify-content-center align-items-center">
                     <label for="category" class="my-input">Ảnh sản phẩm</label>
                     <div class="avatar-wrapper">
-                        {{-- <img class="profile-pic" src="{{ asset('storage/images/product/' . $data[0]->main_image) }}" /> --}}
-                        <img class="profile-pic" src="http://media.doisongphapluat.com/695/2021/3/27/hot-girl-so-huu-vong-1-108cm-khang-dinh-ban-sexy-chu-khong-hu-03.jpg" />
+                        <img class="profile-pic" src="{{ asset('storage/images/product/' . $data[0]->main_image) }}" />
+                        {{-- <img class="profile-pic" src="http://media.doisongphapluat.com/695/2021/3/27/hot-girl-so-huu-vong-1-108cm-khang-dinh-ban-sexy-chu-khong-hu-03.jpg" /> --}}
                         <div class="upload-button">
                             <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                         </div>
@@ -104,13 +104,13 @@
                     <input type="text" class="form-control" id="brand" name="brand" value="{{ $data[0]->name_brand }}" readonly>
                 </div>
                 <div class="form-group col-md-4 mb-0 mt-25">
-                    <label for="product-name" class="my-input">Tên sản phẩm</label>
-                    <input type="text" class="form-control" id="product-name" name="product-name" value="{{ $data[0]->name }}">
+                    <label for="name-product" class="my-input">Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="name-product" name="name-product" value="{{ $data[0]->name }}">
                 </div>
                 <div class="form-group col-md-4 mb-0 mt-25">
-                    <label for="price" class="my-input">Giá sản phẩm</label>
+                    <label for="price-update" class="my-input">Giá sản phẩm</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="price" name="price" data-type="currency" placeholder="Giá sản phẩm" value="{{ number_format($data[0]->price, 0, '', ',') }}">
+                        <input type="text" class="form-control" id="price-update" name="price-update" data-type="currency" placeholder="Giá sản phẩm" value="{{ number_format($data[0]->price, 0, '', ',') }}">
                         <span class="input-group-addon">VND</span>
                     </div>
                 </div>
@@ -267,7 +267,7 @@
                     <div class="form-group col-md-4 mb-0 mt-25">
                         <label for="" class="my-input">Số lượng</label>
                         <input type="hidden" id="name_size" name="name_size[]" class="form-control name-size" value="1">
-                        <input type="text" id="quantity" name="quantity[]" class="form-control quantity" value="@if (empty($select_detail)){{ 0 }}@else{{ $select_detail[11]->quantity }}@endif" data-type="number" data-val="Số lượng">
+                        <input type="text" id="quantity" name="quantity[]" class="form-control quantity" value="@if (empty($select_detail)){{ 0 }}@else{{ $select_detail[0]->quantity }}@endif" data-type="number" data-val="Số lượng">
                     </div>
                 @endif
             </div>
@@ -333,112 +333,119 @@
 
 @endsection
 @section('after-js')
-<script>
-    $(document).ready(function() {
-        // CKEDITOR.replace('editor');
-        var readURL = function(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+@if(isset($data) && !empty($data))
+    <script>
+        $(document).ready(function() {
+            // CKEDITOR.replace('editor');
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('.profile-pic').attr('src', e.target.result);
-                }
-        
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    
-        $(".file-upload").on('change', function(){
-            readURL(this);
-        });
-        
-        $(".upload-button").on('click', function() {
-            $(".file-upload").click();
-        });
-
-        $(document).on('click', '#update-product', function(){
-        // $('#update-product').click(function() {
-            var id = "{{ $data[0]['id'] }}",
-                // category = $('select[name=category-update] option').filter(':selected').val(),
-                // brand = $('select[name=brand-update] option').filter(':selected').val(),
-                name_product = $('#name-product').val(),
-                main_image = $('#image-update')[0].files[0],
-                // image_old = $('#image_old').val(),
-                price = $('#price-update').val(),
-                sale = $('#sale').val(),
-                status = $('select[name=status] option').filter(':selected').val(),
-                arr1 = $('.name-size'),
-                arr2 = $('.quantity'),
-                description = CKEDITOR.instances["ckeditor"].getData();
-            
-            var name_size = [];
-            for(var i = 0; i < arr1.length; i++){
-                if()
-                name_size.push($(arr1[i]).val());
-            }
-            var quantity = [];
-            for(var i = 0; i < arr2.length; i++){
-                if(($(arr2[i]).val()) == '' || ($(arr2[i]).val()) < 0 && ($(arr2[i]).val()) != Number){
-                    $(arr2[i]).val(0);
-                }
-                quantity.push($(arr2[i]).val());
-            }
-            // console.log(quantity);
-            var form_data = new FormData();
-            var files = $('#sub_image')[0].files;
-            
-            for (var i = 0; i < files.length; i++) {
-                // var fileType = files[i]['type'];
-                // console.log(fileType);
-                var name = document.getElementById("sub_image").files[i].name;
-                var ext = name.split('.').pop().toLowerCase();
-                if (jQuery.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
-                    // error_images += '<p>Invalid ' + i + ' File</p>';
-                }
-                console.log(ext);
-                var oFReader = new FileReader();
-                oFReader.readAsDataURL(document.getElementById("sub_image").files[i]);
-
-                form_data.append("sub_image[]", document.getElementById('sub_image').files[i]);
-            }
-            
-            if(id != "" && category != "" && brand != "" && name_product != "" && price != "" && status != "" && description != "" && price != String && price > 0 && image_old != ""){
-            
-                form_data.append("id", id);
-                form_data.append("category_id", category);
-                form_data.append("brand_id", brand);
-                form_data.append("name_product", name_product);
-                if(main_image != undefined){
-                    var fileType = main_image['type'];
-                    var validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-                    if (validImageTypes.includes(fileType)) {
-                        form_data.append("main_image", main_image);
+                    reader.onload = function (e) {
+                        $('.profile-pic').attr('src', e.target.result);
                     }
-                }else{
+            
+                    reader.readAsDataURL(input.files[0]);
                 }
-
-                form_data.append("image_old", image_old);
-                form_data.append("price", price);
-                form_data.append("sale", sale);
-                form_data.append("status", status);
-                form_data.append("name_size", name_size);
-                form_data.append("quantity", quantity);
-                form_data.append("description", description);
-
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('product.update') }}",
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(data) {
-                        dataProduct.ajax.reload(null, false);
-                    }
-                });
             }
-        });
+        
+            $(".file-upload").on('change', function(){
+                readURL(this);
+            });
+            
+            $(".upload-button").on('click', function() {
+                $(".file-upload").click();
+            });
 
-    });
-</script>
+            $(document).on('click', '#update-product', function(){
+                // console.log(123);
+            // $('#update-product').click(function() {
+                var id = "{{ $data[0]->id }}",
+                    // category = $('select[name=category-update] option').filter(':selected').val(),
+                    // brand = $('select[name=brand-update] option').filter(':selected').val(),
+                    name_product = $('#name-product').val(),
+                    main_image = $('#image-update')[0].files[0],
+                    // image_old = $('#image_old').val(),
+                    price_temp = $('#price-update').val(),
+                    sale = $('#sale').val(),
+                    status = $('select[name=status] option').filter(':selected').val(),
+                    arr1 = $('.name-size'),
+                    arr2 = $('.quantity'),
+                    description = CKEDITOR.instances["ckeditor"].getData();
+                // console.log(price);
+                var name_size = [];
+                for(var i = 0; i < arr1.length; i++){
+                    name_size.push($(arr1[i]).val());
+                }
+                var quantity = [];
+                for(var i = 0; i < arr2.length; i++){
+                    if(($(arr2[i]).val()) == '' || ($(arr2[i]).val()) < 0 && ($(arr2[i]).val()) != Number){
+                        $(arr2[i]).val(0);
+                    }
+                    quantity.push($(arr2[i]).val());
+                }
+                // console.log(quantity);
+                var form_data = new FormData();
+                var files = $('#sub_image')[0].files;
+                
+                for (var i = 0; i < files.length; i++) {
+                    // var fileType = files[i]['type'];
+                    // console.log(fileType);
+                    var name = document.getElementById("sub_image").files[i].name;
+                    var ext = name.split('.').pop().toLowerCase();
+                    if (jQuery.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+                        // error_images += '<p>Invalid ' + i + ' File</p>';
+                    }
+                    // console.log(ext);
+                    var oFReader = new FileReader();
+                    oFReader.readAsDataURL(document.getElementById("sub_image").files[i]);
+
+                    form_data.append("sub_image[]", document.getElementById('sub_image').files[i]);
+                }
+                
+                if(id != "" && name_product != "" && price_temp != "" && status != "" && description != ""){
+                    var price = price_temp.replaceAll(',', "");
+                    form_data.append("id", id);
+                    form_data.append("category_id", category);
+                    form_data.append("brand_id", brand);
+                    form_data.append("name_product", name_product);
+                    if(main_image != undefined){
+                        var fileType = main_image['type'];
+                        var validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+                        if (validImageTypes.includes(fileType)) {
+                            form_data.append("main_image", main_image);
+                        }
+                    }else{
+                    }
+                    form_data.append("price", price);
+                    form_data.append("sale", sale);
+                    form_data.append("status", status);
+                    form_data.append("name_size", name_size);
+                    form_data.append("quantity", quantity);
+                    form_data.append("description", description);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('product.update') }}",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function(data) {
+                            if(data == 1){
+                                notification('center', 'success', 'Cập nhật sản phẩm thành công!', 500, false, 1500);
+                                location.reload();
+                            }else if(data == 0){
+                                notification('center', 'error', 'Sản phẩm không tồn tại!', 500, false, 1500);
+                                window.location.href = "{{ route('product.index') }}";
+                            }
+                            // dataProduct.ajax.reload(null, false);
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+@endif
 @endsection

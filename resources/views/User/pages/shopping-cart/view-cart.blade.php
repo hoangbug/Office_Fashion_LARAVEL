@@ -110,7 +110,7 @@
                         <div class="container">
                             <div class="row bottom_button justify-content-around">
                                 <div>
-                                    <button type="button" class="btn btn-info reload-cart">Cập nhật giỏ hàng</button>
+                                    <button type="button" class="btn btn-info reload-cart" style="height: 40px"><i class="fa fa-refresh" aria-hidden="true"></i> Cập nhật giỏ hàng</button>
                                 </div>
                                 <div>
                                     <div class="cupon_text d-flex align-items-center">

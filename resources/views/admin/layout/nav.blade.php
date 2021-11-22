@@ -29,7 +29,7 @@
                     <span class="nav-label">Quản lý sản phẩm</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="{{ route('product.index') }}">Quản lý sản phẩm</a>
+                        <a href="{{ route('product.index') }}">Sản phẩm</a>
                     </li>
                     <li>
                         <a href="">Comment sản phẩm</a>
@@ -84,17 +84,23 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="{{ Request::is('admin/affiliate/*') ? 'active' : '' }}">
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
                     <span class="nav-label">Tiếp thị liên kết</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="{{ route('partner.index') }}">Quản lý cộng tác viên</a>
                     </li>
+                    <li>
+                        <a href="{{ route('partner.index') }}">Quản lý tỉ lệ hoa hồng</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('partner.index') }}">Quản lý các chương trình</a>
+                    </li>
                 </ul>
             </li>
-            <li class="">
-                <a href=""><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
+            <li class="{{ Request::is('admin/manage-cart') ? 'active' : '' }}">
+                <a href="{{ route('manage.cart.index') }}"><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
                     <span class="nav-label">Quản lý đơn hàng</span>
                 </a>
             </li>

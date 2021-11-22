@@ -40,6 +40,7 @@ class SendMailCheckout implements ShouldQueue
     {
         $order = Order::find($this->order_id);
         $user = Member::find($order->member_id);
+        // dd($user);
         $order_detail = OrderDetail::select('order_id', 'product_id', 'name_size', 'quantity')->where('order_id', '=', $order->id)->get()->toArray();
 
         // Nexmo::message()->send([

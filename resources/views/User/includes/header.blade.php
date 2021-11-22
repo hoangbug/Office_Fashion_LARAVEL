@@ -80,18 +80,17 @@
                         </li>
                     @endif
                 </ul>
-
                 <ul class="nav-shop" id="cart-pc">
                     <li class="mr-0"><a href=""><i class="fas fa-heart" style="font-size: 32px; color: #384aeb;"></i></a></li>
                     <li class="nav-item">
                         <a href="{{ route('cart.index') }}">
                             <button>
                                 <i class="fas fa-luggage-cart" style="font-size: 32px; color: #f53d2d;"></i>
-                                @if (isset($count))
-                                    <div id="load-count">
+                                <div id="load-count">
+                                    @if (isset($count))
                                         <span class="nav-shop__circle count-cart" style="font-size: 15px; padding: 1px 9px; top: -13px; right: -24px;">{{ $count }}</span>
-                                    </div>
-                                @endif
+                                    @endif
+                                </div>
                             </button>
                         </a>
                     </li>
