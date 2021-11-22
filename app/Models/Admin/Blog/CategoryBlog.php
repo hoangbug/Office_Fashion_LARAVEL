@@ -10,7 +10,7 @@ class CategoryBlog extends Model
     protected $table = 'category_blogs';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'name_cate', 'status'];
+    protected $fillable = ['id', 'name_cate', 'status', 'image'];
 
     public function blogs(): HasMany
     {

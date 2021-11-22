@@ -139,14 +139,14 @@
             </li>
             <li class="dropdown dropdown-user">
                 <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
-                    <img src="./assets/img/admin-avatar.png" />
+                    <img src="{{ asset('admin_assets/img/admin-avatar.png') }}" />
                     <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
-                    <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
+                    <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Tài khoản</a>
+                    <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Cài đặt</a>
+                    <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Hỗ trợ</a>
                     <li class="dropdown-divider"></li>
-                    <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
                 </ul>
             </li>
         </ul>

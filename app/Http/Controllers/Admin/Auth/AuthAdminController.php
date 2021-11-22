@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CheckLoginAdminRequest;
 use App\Http\Requests\Admin\user\UserStoreRequest;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class AuthAdminController extends Controller
         return redirect()->back();
     }
 
-    public function checkLogin(Request $request)
+    public function checkLogin(CheckLoginAdminRequest $request)
     {
         $user =  $this->userRepository->checkLogin($request);
         if($user)

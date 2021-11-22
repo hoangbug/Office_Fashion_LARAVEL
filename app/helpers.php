@@ -18,12 +18,10 @@ if (!function_exists('saveImage')) {
 }
 
 if (!function_exists('deleteImage')) {
-    function deleteImage($fileName)
+    function deleteImage($path)
     {
-        if (Storage::disk('public')->exists($fileName)) {
-            Storage::disk('public')->delete($fileName);
+        if (file_exists($path)) {
+            unlink($path);
         }
-
-        return $fileName;
     }
 }

@@ -22,23 +22,6 @@ class CategoryBlogRepository extends BaseRepository
         return $this->model->find($id, $columns);
     }
 
-    public function getWithPaginate($quantity = 5)
-    {
-        return $this->model->latest('id')->paginate($quantity);
-    }
-
-    public function create($attributes)
-    {
-        return $this->model->create($attributes);
-    }
-
-    public function update($id, $attributes)
-    {
-        $category = $this->model->find($id);
-        $category->update($attributes);
-        return $category;
-    }
-
     public function destroy($id): bool
     {
         $category = $this->model->find($id);
@@ -49,8 +32,16 @@ class CategoryBlogRepository extends BaseRepository
         return false;
     }
 
-    public function search($request)
+    public function save($params)
     {
-        return $this->model->latest('id')->paginate(5);
+        $data = new $this->model();
+
+        $data->name_cate = $params['name_cate'];
+        $data->image = $params['image'];
+        $data->created_at = now();
+        $data->timestamps = false;
+        $data->save();
+
+        return $data;
     }
 }
