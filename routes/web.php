@@ -161,82 +161,82 @@ Route::middleware(['loginAdmin'])->group(function () {
         });
 
         //USER
-        Route::group(['prefix' => 'users', 'namespace' => 'Admin\User'], function () {
-            Route::get('/', [
-                'as' => 'user.index',
-                'uses' => 'UserController@index',
-                'middleware' => 'permission:user-list'
-            ]);
+        // Route::group(['prefix' => 'users', 'namespace' => 'Admin\User'], function () {
+        //     Route::get('/', [
+        //         'as' => 'user.index',
+        //         'uses' => 'UserController@index',
+        //         'middleware' => 'permission:user-list'
+        //     ]);
 
-            //create user
-            Route::post('/create', [
-                'as' => 'user.store',
-                'uses' => 'UserController@store',
-                'middleware' => 'permission:user-create'
-            ]);
-            Route::get('/create', [
-                'as' => 'user.create',
-                'uses' => 'UserController@create',
-                'middleware' => 'permission:user-create'
-            ]);
+        //     //create user
+        //     Route::post('/create', [
+        //         'as' => 'user.store',
+        //         'uses' => 'UserController@store',
+        //         'middleware' => 'permission:user-create'
+        //     ]);
+        //     Route::get('/create', [
+        //         'as' => 'user.create',
+        //         'uses' => 'UserController@create',
+        //         'middleware' => 'permission:user-create'
+        //     ]);
 
-            //update user
-            Route::get('/edit/{id}', [
-                'as' => 'user.edit',
-                'uses' => 'UserController@edit',
-                'middleware' => 'permission:user-edit'
-            ]);
-            Route::post('/edit/{id}', [
-                'as' => 'user.update',
-                'uses' => 'UserController@update',
-                'middleware' => 'permission:user-edit'
-            ]);
+        //     //update user
+        //     Route::get('/edit/{id}', [
+        //         'as' => 'user.edit',
+        //         'uses' => 'UserController@edit',
+        //         'middleware' => 'permission:user-edit'
+        //     ]);
+        //     Route::post('/edit/{id}', [
+        //         'as' => 'user.update',
+        //         'uses' => 'UserController@update',
+        //         'middleware' => 'permission:user-edit'
+        //     ]);
 
-            //delete user
-            Route::delete('/delete/{id}', [
-                'as' => 'user.delete',
-                'uses' => 'UserController@delete',
-                'middleware' => 'permission:user-delete'
-            ]);
-            //LIST
-            Route::get('/list', 'UserController@getList')
-                ->name('user.list');
-        });
+        //     //delete user
+        //     Route::delete('/delete/{id}', [
+        //         'as' => 'user.delete',
+        //         'uses' => 'UserController@delete',
+        //         'middleware' => 'permission:user-delete'
+        //     ]);
+        //     //LIST
+        //     Route::get('/list', 'UserController@getList')
+        //         ->name('user.list');
+        // });
 
         //ROLES
-        Route::group(['prefix' => 'users', 'namespace' => 'Admin\Role'], function () {
-            Route::get('/', [
-                'as' => 'role.index',
-                'uses' => 'RoleController@index',
-                'middleware' => 'permission:role-list'
-            ]);
+        // Route::group(['prefix' => 'users', 'namespace' => 'Admin\Role'], function () {
+        //     Route::get('/', [
+        //         'as' => 'role.index',
+        //         'uses' => 'RoleController@index',
+        //         'middleware' => 'permission:role-list'
+        //     ]);
 
-            //create role
-            Route::post('/create', [
-                'as' => 'role.store',
-                'uses' => 'RoleController@store',
-                'middleware' => 'permission:role-create'
-            ]);
+        //     //create role
+        //     Route::post('/create', [
+        //         'as' => 'role.store',
+        //         'uses' => 'RoleController@store',
+        //         'middleware' => 'permission:role-create'
+        //     ]);
 
-            //update role
-            Route::get('/edit/{id}', [
-                'as' => 'role.edit',
-                'uses' => 'RoleController@edit',
-                'middleware' => 'permission:role-edit'
-            ]);
-            Route::post('/edit/{id}', [
-                'as' => 'role.update',
-                'uses' => 'RoleController@update',
-                'middleware' => 'permission:role-edit'
-            ]);
+        //     //update role
+        //     Route::get('/edit/{id}', [
+        //         'as' => 'role.edit',
+        //         'uses' => 'RoleController@edit',
+        //         'middleware' => 'permission:role-edit'
+        //     ]);
+        //     Route::post('/edit/{id}', [
+        //         'as' => 'role.update',
+        //         'uses' => 'RoleController@update',
+        //         'middleware' => 'permission:role-edit'
+        //     ]);
 
-            //delete role
-            Route::delete('/delete/{id}', [
-                'as' => 'role.delete',
-                'uses' => 'RoleController@delete',
-                'middleware' => 'permission:role-delete'
-            ]);
-        });
+        //     //delete role
+        //     Route::delete('/delete/{id}', [
+        //         'as' => 'role.delete',
+        //         'uses' => 'RoleController@delete',
+        //         'middleware' => 'permission:role-delete'
+        //     ]);
+        // });
         Route::group(['prefix' => 'blogs', 'namespace' => 'Admin\Blog'], function () {
             Route::get('index', 'BlogController@index')->name('blog.index');
             Route::post('store', 'BlogController@store')->name('blog.store');

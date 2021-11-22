@@ -18,7 +18,7 @@ function substr_word($str, $limit)
 }
 @endphp
 
-<div class="notification-view" style="z-index: 99999"></div>
+{{-- <div class="notification-view" style="z-index: 99999"></div> --}}
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin sản phẩm</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

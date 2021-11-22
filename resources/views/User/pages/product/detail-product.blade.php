@@ -134,8 +134,7 @@
                             @endphp</label>
                         </div>
                         <div>
-                            <button class="button primary-btn add-to-cart"><i class="fa fa-cart-plus pr-2"
-                                    aria-hidden="true"></i>Thêm vào giỏ hàng</button>
+                            <button class="button primary-btn add-to-cart"><i class="fa fa-cart-plus pr-2" aria-hidden="true"></i>Thêm vào giỏ hàng</button>
                         </div>
                         <div class="card_area d-flex align-items-center">
                             <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -467,6 +466,9 @@
                 arrPage.push(page);
             });
             var id = "{{ $detailWomen[0]->id }}";
+            if(id != ""){
+                arrProduct.push(Number(id));
+            }
             function fetch_data(page) {
                 if(id != ""){
                     $.ajax({
@@ -715,78 +717,7 @@
                         });
                     }
                 }
-                
             });
-
-
-        });
-
-        var sizeDefault = $('#sizeDefault').val();
-        var sizeProduct = 0;
-
-        $(document).on('click', '.btn-size', function(e) {
-            e.preventDefault();
-            $('.btn-size').removeClass('active-size');
-            $(this).toggleClass('active-size');
-
-            var size_id = $(this).attr('size_id');
-            var quantity = $(this).attr('quantitySize');
-            // $('#totalProduct').val(quantitySize);
-            $('.quantityProduct').html('Có ' + quantity + ' sản phẩm có sẵn');
-            sizeProduct = $(this).attr('nameSize');
-            $('#noti-checksize').html('');
-            $('#display-size').css({'background': '#fff'});
-            $('#c-size').css({'color': '#777'});
-        });
-        $(document).on('click', '.add-to-cart', function(e) {
-            // $('.add-to-cart').click(function(e){
-            e.preventDefault();
-            // var product_id = '{{ $detailWomen[0]->id }}';
-            var quantity = $('#sst').val();
-
-            if (sizeProduct == "" && sizeDefault == 0) {
-                $('#noti-checksize').html('Vui lòng chọn Size!');
-                $('#display-size').css({
-                    'background': '#ff8080'
-                });
-                $('#c-size').css({
-                    'color': '#000'
-                });
-            } else if (sizeDefault == 1) {
-                sizeProduct = 1;
-            }
-            $.ajax({
-                type: "GET",
-                url: "{{ route('cart.show', $detailWomen[0]->id) }}",
-                data: {
-                    quantity: quantity,
-                    sizeProduct: sizeProduct,
-                    sizeDefault: sizeDefault
-                },
-                success: function(data) {
-                    if (data == 1) {
-                        var html = '';
-                        html += '\
-                        <div class="noti-cart animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top:30%;opacity:0.7; padding:20px; left:40%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                            <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background: red" aria-hidden="true"></span>\
-                            <p style="margin-top:20px;font-size: 20px; color:white">Bạn đã thêm số lượng tối đa của sản phẩm</p>\
-                        </div>';
-                        $('.notification').html(html);
-                        $('.noti-cart').delay(2000).slideUp();
-                    } else {
-                        $('#load-count').load(' .count-cart');
-                        var html = '';
-                        html += '\
-                        <div class="noti-cart animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top:30%;opacity:0.7; padding:20px; left:40%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                            <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background:#00CCCC" class="fas fa-check" aria-hidden="true"></span>\
-                            <p style="margin-top:20px;font-size: 20px; color:white">Sản phẩm đã được thêm vào Giỏ hàng</p>\
-                        </div>';
-                        $('.notification').html(html);
-                        $('.noti-cart').delay(2000).slideUp();
-                    }
-                }
-            });
-
         });
 
     </script>

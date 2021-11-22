@@ -12,7 +12,6 @@
         @include('User/includes.header')
     </header>
     <!--================ End Header Menu Area =================-->
-    <div class="notification" style="z-index: 99999"></div>
     @endif
 
     <!-- Messenger Plugin chat Code -->
