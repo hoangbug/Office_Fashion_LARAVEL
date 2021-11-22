@@ -260,6 +260,8 @@
                     data: { id: id },
                     url: "{{ route('partner.delete') }}",
                     success: function() {
+                        $('#destroyPartner').modal('hide');
+                        notification('center', 'success', 'Xoá cộng tác viên thành công!', 500, false, 1500);
                         dataPartner.ajax.reload(null, false);
                     }
                 });

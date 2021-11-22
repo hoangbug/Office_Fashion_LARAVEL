@@ -14,7 +14,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 <!-- Datatables -->
-<script src="{{ asset('admin-assets/js/plugin/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/plugin/datatables/datatables.min.js') }}"></script>
 
 <script src="{{ asset('assets/vendors/jquery.ajaxchimp.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/mail-script.js') }}"></script>

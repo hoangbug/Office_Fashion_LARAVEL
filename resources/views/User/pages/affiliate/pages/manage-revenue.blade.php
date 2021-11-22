@@ -62,7 +62,7 @@
 </div>
 
 
-<script src="{{ asset('admin-assets/js/plugin/chart.js/chart.min.js') }}"></script>
+<script src="{{ asset('admin-assets-old/js/plugin/chart.js/chart.min.js') }}"></script>
 {{-- Date Range Picker --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

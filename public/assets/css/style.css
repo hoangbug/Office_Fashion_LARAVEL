@@ -4877,20 +4877,21 @@
     }
     
     .btn-pink {
-        font-size: 20px;
+        /* font-size: 20px;
         padding: 13px 15px;
-        margin: 20px 0;
+        margin: 20px 0; */
+        height: 38px;
         color: #fff;
         background-color: rgb(255, 105, 180);
         border-color: rgb(255, 105, 180);
-        border-radius: 10px;
+        /* border-radius: 10px; */
     }
     
     .btn-pink:hover {
         color: #fff;
         background-color: rgb(255, 105, 180);
         border-color: rgb(255, 105, 180);
-        padding: 13px 15px;
+        /* padding: 13px 15px; */
         -webkit-box-shadow: 0px 0px 38px 5px rgb(255, 105, 180);
         -moz-box-shadow: 0px 0px 38px 5px rgb(255, 105, 180);
         box-shadow: 0px 0px 38px 5px rgb(255, 105, 180);
