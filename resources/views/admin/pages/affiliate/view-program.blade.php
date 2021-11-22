@@ -19,7 +19,7 @@
                 <h3 class="text-dark font-weight-700">Quản lý cộng tác viên</h3>
             </div>
             <div class="col-md-8 p-0 d-flex justify-content-end">
-                <a  href="" class="d-flex justify-content-end align-items-center" style="width: 60px;" data-toggle="modal" data-target="#addRowModal">
+                <a href="{{ route('program.add') }}" target="_blank" class="d-flex justify-content-end align-items-center" style="width: 60px;">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </a>
             </div>
@@ -38,17 +38,19 @@
                     <input type="hidden" id="end_date" value="" />
                 </div>
                 <div class="col-md-3 mt-25 mb-25">
-                    <label class="my-input" for="status-partner">Trạng thái</label>
-                    <select name="status-partner" id="status-partner" class="form-control">
-                        <option value="0">-- Tất cả --</option>
-                        <option value="1">Chờ phê duyệt</option>
-                        <option value="2">Đang hoạt động</option>
-                        <option value="3">Đã khóa</option>
+                    <label class="my-input" for="program-filter">Danh mục</label>
+                    <select name="program-filter" id="program-filter" class="form-control">
+                        <option value="" hidden>Chọn danh mục</option>
+                        @if(isset($category) && !empty($category))
+                            @foreach ($category as $val)
+                                <option value="{{ $val->id }}">{{ $val->name_cate }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="col-md-3 mt-25 mb-25">
-                    <label class="my-input" for="name-partner">Tìm kiếm Họ tên \ Email \ Sđt cộng tác viên</label>
-                    <input class="form-control" type="text" name="name-partner" id="name-partner" placeholder="Tìm kiếm Họ tên\Email\Sđt cộng tác viên">
+                    <label class="my-input" for="name-program-filter">Tìm kiếm tiêu đề</label>
+                    <input class="form-control" type="text" name="name-program-filter" id="name-program-filter" placeholder="Tìm kiếm tiêu đề">
                 </div>
                 <div class="col-md-3 mt-25 mb-25 custom-search">
                     <div class="input-group">
@@ -64,15 +66,17 @@
     <div class="row mt-4">
         <div class="col-md-12 mb-5 p-0">
             <div class="table-responsive">
-                <table id="partner-datatables" class="display table table-striped table-hover" cellspacing="0"
+                <table id="program-datatables" class="display table table-striped table-hover" cellspacing="0"
                        width="100%">
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Ảnh đại diện</th>
-                            <th>Họ tên</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
+                            <th>Ảnh chương trình</th>
+                            <th>Danh mục</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Tiêu đề</th>
+                            <th>Khách hàng cũ</th>
+                            <th>Khách hàng mới</th>
                             <th>Trạng thái</th>
                             <th>Ngày tạo</th>
                             <th>Chức năng</th>
@@ -145,8 +149,8 @@
         }, callbackDateRange);
 
         callbackDateRange(start, end);
-        var arrStatus = [0];
-        var dataPartner = $('#partner-datatables').DataTable({
+        var arrStatus = [0], arrCategory = [0];
+        var dataProgram = $('#program-datatables').DataTable({
             dom: 'rtp',
             processing: true,
             serverSide: true,
@@ -159,12 +163,12 @@
                 [0, "ASC"]
             ],
             ajax: {
-                url  : '{{ route('partner.index') }}',
+                url  : '{{ route('program.index') }}',
                 type : 'GET',
                 data: function(param) {
                     param.start_date = $('#start_date').val();
                     param.end_date = $('#end_date').val();
-                    param.status = arrStatus.slice(-1)[0];
+                    param.category = arrCategory.slice(-1)[0];
                 }
             },
             // "targets": 0,
@@ -194,24 +198,12 @@
                         return '<img src="{{ asset('storage/images/affiliate') }}/'+row.avatar+'" alt="" style="width:100px; height: 100px;">';
                     }
                 },
-                {
-                    data: '', render: function (data, type, row) {
-                        return ''+row.firstname+' '+row.lastname+'';
-                    }
-                },
-                {data: 'email', name: 'email'},
-                {data: 'phone', name: 'phone'},
-                {
-                    data: 'status', render: function (data, type, row) {
-                        if(data == 1){
-                            return '<p class="text-warning mb-0">Chờ phê duyệt</p>';
-                        }else if(data == 2){
-                            return '<p class="text-success mb-0">Đang hoạt động</p>';
-                        }else if(data == 3){
-                            return '<p class="text-error mb-0">Đang khóa</p>';
-                        }
-                    }
-                },
+                {data: 'name_cate', name: 'name_cate'},
+                {data: 'name', name: 'name'},
+                {data: 'title', name: 'title'},
+                {data: 'rose_old', name: 'rose_old'},
+                {data: 'rose_new', name: 'rose_new'},
+                {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'created_at'},
                 {
                     data: '', render: function (data, type, row) {
@@ -229,102 +221,22 @@
         // } ).draw();
 
         $('#date_range').on('apply.daterangepicker', function(event, picker) {
-            dataPartner.ajax.reload(null, false);
+            dataProgram.ajax.reload(null, false);
         });
 
-        $(document).on('change', '#status-partner', function(){
-            var status = $(this).val();
-            if(status != ""){
-                arrStatus.push(Number(status));
-                dataPartner.ajax.reload(null, false);
+        $(document).on('change', '#program-filter', function(){
+            var category = $(this).val();
+            if(category != ""){
+                arrCategory.push(Number(category));
+                dataProgram.ajax.reload(null, false);
             }
         });
 
         $(document).on('click', '.search-store', function(){
-            var filter = $('#name-partner').val();
-            $('#datatables').DataTable().search(filter).draw();
+            var filter = $('#name-program-filter').val();
+            $('#program-datatables').DataTable().search(filter).draw();
         });
 
-        var arrPartnerId = [];
-        $(document).on('click', '.delete-partner', function (){
-            var id = $(this).attr('data-url');
-            if(id != ""){
-                arrPartnerId.push(Number(id));
-            }
-        });
-        $(document).on('click', '.confirm', function (){
-            var id = arrPartnerId.slice(-1)[0];
-            if(id != ""){
-                $.ajax({
-                    type: "GET",
-                    data: { id: id },
-                    url: "{{ route('partner.delete') }}",
-                    success: function() {
-                        dataPartner.ajax.reload(null, false);
-                    }
-                });
-            }
-        });
-        
-        $(document).on('click', '.edit-partner', function (){
-            var id = $(this).attr('data-url');
-            if(id != ""){
-                arrPartnerId.push(Number(id));
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('partner.edit') }}",
-                    data: { id : id },
-                    dataType: "html",
-                    success: function(data) {
-                        $('#load-detail').html(data);
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.approve-partner', function (){
-            var id = arrPartnerId.slice(-1)[0];
-            if(id != ""){
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('partner.approve') }}",
-                    data: { id: id },
-                    success: function() {
-                        notification('center', 'success', 'Phê duyệt thành công!', 500, false, 1500);
-                        dataPartner.ajax.reload(null, false);
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.lockup-partner', function (){
-            var id = arrPartnerId.slice(-1)[0];
-            if(id != ""){
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('partner.lockup') }}",
-                    data: { id: id },
-                    success: function() {
-                        notification('center', 'success', 'Khóa cộng tác viên thành công!', 600, false, 1500);
-                        dataPartner.ajax.reload(null, false);
-                    }
-                });
-            }
-        });
-        $(document).on('click', '.unlockup-partner', function (){
-            var id = arrPartnerId.slice(-1)[0];
-            if(id != ""){
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('partner.unlockup') }}",
-                    data: { id: id },
-                    success: function() {
-                        notification('center', 'success', 'Mở khóa cộng tác viên thành công!', 600, false, 1500);
-                        dataPartner.ajax.reload(null, false);
-                    }
-                });
-            }
-        });
 
     });
 </script>

@@ -273,10 +273,12 @@ Route::middleware(['loginAdmin'])->group(function () {
             Route::get('partner-edit', 'Admin\Affiliate\PartnerController@edit')->name('partner.edit');
             Route::post('partner-approve', 'Admin\Affiliate\PartnerController@approve')->name('partner.approve');
             Route::post('partner-lockup', 'Admin\Affiliate\PartnerController@lockup')->name('partner.lockup');
+            Route::post('partner-unlockup', 'Admin\Affiliate\PartnerController@unlockup')->name('partner.unlockup');
 
             //* Program Affiliate
             Route::get('program-view', 'Admin\Affiliate\ProgramSellController@index')->name('program.index');
             Route::get('program-view-category', 'Admin\Affiliate\ProgramSellController@view')->name('program.view');
+            Route::get('program-view-add', 'Admin\Affiliate\ProgramSellController@viewAdd')->name('program.add');
             Route::post('program-view-insert', 'Admin\Affiliate\ProgramSellController@insert')->name('program.insert');
             Route::get('program-view-delete', 'Admin\Affiliate\ProgramSellController@delete')->name('program.delete');
             Route::get('program-view-edit', 'Admin\Affiliate\ProgramSellController@edit')->name('program.edit');

@@ -92,10 +92,10 @@
                         <a href="{{ route('partner.index') }}">Quản lý cộng tác viên</a>
                     </li>
                     <li>
-                        <a href="{{ route('partner.index') }}">Quản lý tỉ lệ hoa hồng</a>
+                        <a href="{{ route('rose.index') }}">Quản lý tỉ lệ hoa hồng</a>
                     </li>
                     <li>
-                        <a href="{{ route('partner.index') }}">Quản lý các chương trình</a>
+                        <a href="{{ route('program.index') }}">Quản lý các chương trình</a>
                     </li>
                 </ul>
             </li>
