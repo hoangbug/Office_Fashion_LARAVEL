@@ -93,8 +93,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="">
-                <a href=""><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
+            <li class="{{ Request::is('admin/category') ? 'active' : '' }}">
+                <a href="{{ route('manage.cart.index') }}"><i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
                     <span class="nav-label">Quản lý đơn hàng</span>
                 </a>
             </li>

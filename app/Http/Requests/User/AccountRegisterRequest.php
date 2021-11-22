@@ -29,7 +29,7 @@ class AccountRegisterRequest extends FormRequest
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'name' => 'required',
             'address' => 'required',
-            'phone' => 'required|regex:/^0[1-9]{8}$/|unique:members',
+            'phone' => 'required|regex:/^0[1-9]{9}$/|unique:members',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password'
         ];

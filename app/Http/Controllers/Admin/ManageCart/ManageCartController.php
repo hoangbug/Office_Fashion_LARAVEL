@@ -15,37 +15,40 @@ class ManageCartController extends Controller
 {
     function index(Request $request) {
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
+            $request->validate([
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+                'status' => 'required|in:0,1,2,3,4,5,6,7',
+                'payment' => 'required|in:0,1,2'
+            ]);
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $status = $request->status;
+            if($status == 0){
+                $operatorStatus = '<>';
+            }else{
+                $operatorStatus = '=';
+            }
+            $payment = $request->payment;
+            if($payment == 0){
+                $operatorPayment = '<>';
+            }else{
+                $operatorPayment = '=';
+            }
 
-                if(($start_date) == ($end_date)){
-                    $data = DB::table('orders')->join('members', 'orders.member_id', '=', 'members.id')->select('orders.id', 'orders.member_id', 'members.name', 'members.phone', 'orders.total_money', 'orders.created_at', 'orders.status')->whereDate('orders.created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = DB::table('orders')->join('members', 'orders.member_id', '=', 'members.id')->select('orders.id', 'orders.member_id', 'members.name', 'members.phone', 'orders.total_money', 'orders.created_at', 'orders.status')->whereBetween('orders.created_at', array($start_date, $end_date))->get()->toArray();
-                }
-            } 
-            foreach($data as $key => $value){
-                $status = $value->status;
-                if(($status) == 1){
-                    $data[$key]->status = 'Chờ xử lý';
-                }elseif(($status) == 2){
-                    $data[$key]->status = 'Đã xác nhận';
-                }elseif(($status) == 3){
-                    $data[$key]->status = 'Chờ lấy hàng';
-                }elseif(($status) == 4){
-                    $data[$key]->status = 'Đang giao hàng';
-                }elseif(($status) == 5){
-                    $data[$key]->status = 'Đã giao hàng';
-                }elseif(($status) == 6){
-                    $data[$key]->status = 'Đã hoàn tất';
-                }elseif(($status) == 7){
-                    $data[$key]->status = 'Đã hủy';
+            if(($start_date) == ($end_date)){
+                $data = DB::table('orders')->join('members', 'orders.member_id', '=', 'members.id')->select('orders.id', 'orders.member_id', 'members.name', 'members.phone', 'orders.total_money', 'orders.created_at', 'orders.status')->whereDate('orders.created_at', '=', $start_date)->where('orders.payment_method', $operatorPayment, $payment)->where('orders.status', $operatorStatus, $status)->get()->toArray();
+            }else{
+                $data = DB::table('orders')->join('members', 'orders.member_id', '=', 'members.id')->select('orders.id', 'orders.member_id', 'members.name', 'members.phone', 'orders.total_money', 'orders.created_at', 'orders.status')->whereBetween('orders.created_at', array($start_date, $end_date))->where('orders.payment_method', $operatorPayment, $payment)->where('orders.status', $operatorStatus, $status)->get()->toArray();
+            }
+            if(!empty($data)){
+                foreach($data as $key => $value){
+                    $data[$key]->created_at = date('d-m-Y', strtotime($value->created_at));
                 }
             }
             return Datatables::of($data)->make(true);
         }
-        return view('admin/pages/manage-cart.view-cart');
+        return view('admin/pages/manage-cart.view-managecart');
     }
 
     public function edit(Request $request)
@@ -53,10 +56,13 @@ class ManageCartController extends Controller
         if(request()->ajax()) {
             if(!empty($request->id)){
                 $order = Order::find($request->id)->toArray();
+                if(!empty($order)){
+                    $order['created_at'] = date('d-m-Y', strtotime($order['created_at']));
+                    $order['updated_at'] = date('d-m-Y', strtotime($order['updated_at']));
+                }
                 // $orderDetail = OrderDetail::select('*')->where('order_id', '=', $order['id'])->get()->toArray();
 
                 $orderDetail = DB::table('order_details')->join('orders', 'order_details.order_id', '=', 'orders.id')->join('products', 'order_details.product_id', '=', 'products.id')->select('order_details.order_id', 'order_details.product_id', 'order_details.name', 'order_details.name_size', 'order_details.quantity', 'order_details.price', 'order_details.total_money', 'products.main_image')->where('order_details.order_id', '=', $order['id'])->get()->toArray();
-
                 $member = Member::select('id', 'name', 'phone', 'address', 'email')->where('id', '=', $order['member_id'])->get()->toArray();
                 return view('admin/pages/manage-cart.approval-cart',[
                     'order' => $order,

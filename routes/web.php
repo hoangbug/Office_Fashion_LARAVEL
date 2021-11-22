@@ -246,7 +246,7 @@ Route::middleware(['loginAdmin'])->group(function () {
         });
 
         //* Manage cart
-        Route::get('manage-cart', 'Admin\ManageCart\ManageCartController@index')->name('manage-cart.index');
+        Route::get('manage-cart', 'Admin\ManageCart\ManageCartController@index')->name('manage.cart.index');
         Route::get('load-cart', 'Admin\ManageCart\ManageCartController@edit')->name('manage-cart.edit');
         Route::get('detete-cart', 'Admin\ManageCart\ManageCartController@delete')->name('manage-cart.delete');
         Route::get('update-cart', 'Admin\ManageCart\ManageCartController@update')->name('manage-cart.update');

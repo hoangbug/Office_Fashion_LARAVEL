@@ -183,13 +183,13 @@ class CheckoutController extends Controller
                                 }
                             }
                             SendMailCheckout::dispatch($order_id);
+                            // dd($order_id);
                             Cart::destroy();
                             if(session()->has('arrDiscount')){
                                 session()->forget('arrDiscount');
                             }
                             return redirect()->route('index');
                         }
-
                     }elseif($payment == 2){
                         $arrpay = [];
                         $arrpay['member_id'] = $user_id;
