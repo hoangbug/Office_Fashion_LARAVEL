@@ -21,6 +21,7 @@ class ProductController extends Controller
             ]);
             $id = $request->id;
             $comments = Comment::select('comments.*', 'members.avatar', 'members.name AS member_name', 'members.email AS member_email')->leftJoin('members', 'members.id', '=', 'comments.member_id')->where('product_id', '=', $id)->orderBy('id', 'DESC')->paginate(3);
+            // dd($comments);
             return view('User/pages/product/pages.load-comment',[
                 'dataComment' => $comments,
             ]);

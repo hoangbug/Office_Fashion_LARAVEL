@@ -234,23 +234,9 @@
                 success: function (data) {
                     if(data == 'success'){
                         $('#load-count').load(' .count-cart');
-                        var html = '';
-                        html +='\
-                        <div class="noti-cart animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top:30%;opacity:0.7; padding:20px; left:40%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                            <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background:#00CCCC" class="fas fa-check" aria-hidden="true"></span>\
-                            <p style="margin-top:20px;font-size: 20px; color:white">Sản phẩm đã được thêm vào Giỏ hàng</p>\
-                        </div>';
-                        $('.notification').html(html);
-                        $('.noti-cart').delay(2000).slideUp();
+                        notification('center', 'success', 'Sản phẩm đã được thêm vào giỏ hàng', 650, false, 2000);
                     }else if(data == 'error'){
-                        var html = '';
-                        html +='\
-                        <div class="noti-cart animate__animated animate__zoomInDown" style="animation-duration: 0.5s; position: absolute;z-index: 10; top:30%;opacity:0.7; padding:20px; left:40%; border-radius: 10px; background: black; position: fixed; text-align: center;">\
-                            <span style="font-size: 45px; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; color:white ;background: red" class="fas fa-times" aria-hidden="true"></span>\
-                            <p style="margin-top:20px;font-size: 20px; color:white">Bộ đồ cơ bản phải có Áo - Quần - Giày</p>\
-                        </div>';
-                        $('.notification').html(html);
-                        $('.noti-cart').delay(2000).slideUp();
+                        notification('center', 'warning', 'Bộ đồ cơ bản phải có Áo - Quần - Giày', 650, false, 2000);
                     }
                     load_data_suit();
                 }
