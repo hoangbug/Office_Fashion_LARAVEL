@@ -16,22 +16,17 @@ class DiscountCodeController extends Controller
     {
         $category = Category::all()->toArray();
         if(request()->ajax()) {
-            if(!empty($request->start_date) && !empty($request->end_date)) {
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-                if(($start_date) == ($end_date)){
-                    $data = DB::table('discount_codes')->select('id', 'title', 'type_code', 'price', 'time', 'status')->whereDate('created_at', '=', $start_date)->get()->toArray();
-                }else{
-                    $data = DB::table('discount_codes')->select('id', 'title', 'type_code', 'price', 'time', 'status')->whereBetween('created_at', array($start_date, $end_date))->get()->toArray();
-                }
-            }
+            $data = DB::table('discount_codes')->select('id', 'title', 'type_code', 'price', 'time', 'status')->get()->toArray();
             foreach($data as $key => $value){
                 $type_code = $value->type_code;
                 if(($type_code) == 1){
+                    $data[$key]->type = '1';
                     $data[$key]->type_code = 'Mã giảm giá % theo sản phẩm';
                 }elseif(($type_code) == 2){
+                    $data[$key]->type = '2';
                     $data[$key]->type_code = 'Mã giảm giá tiền';
                 }elseif(($type_code) == 3){
+                    $data[$key]->type = '3';
                     $data[$key]->type_code = 'Mã miễn phí vận chuyển';
                 }
 
@@ -44,23 +39,24 @@ class DiscountCodeController extends Controller
             }
             return Datatables::of($data)->make(true);
         }
-        return view('admin/pages/discount-code.view-manage',[
-            'category' => $category,
-        ]);
+        return view('admin/pages/discount.view-discount',['category' => $category]);
     }
 
-    public function selectProduct(Request $request)
-    {
+    public function viewAdd(Request $request){
+        $category = Category::all()->toArray();
+        return view('admin/pages/discount.add-discount',['category' => $category]); 
+    }
+
+    public function showCode(Request $request){
         if(request()->ajax()) {
             if(!empty($request->id) && is_numeric($request->id)) {
-                $data = Product::select('id', 'name')->where('category_id', '=', $request->id)->where('status', '<>', 5)->get()->toArray();
+                $data = Discount_code::select('*')->where('id', '=', $request->id)->where('status', 1)->get()->toArray();
                 return response()->json(['data' => $data]);
             }
         }
     }
 
-    public function insertCode(Request $request)
-    {
+    public function insertCode(Request $request){
         if(request()->ajax()) {
             $request->validate([
                 'category_id' => 'nullable|integer',
@@ -107,6 +103,37 @@ class DiscountCodeController extends Controller
                 $discount_code->time = $request->time;
                 $discount_code->save();
 
+            }
+        }
+    }
+
+    public function updateCode(Request $request){
+        if(request()->ajax()) {
+            $request->validate([
+                'category_id' => 'nullable|integer',
+                'id' => 'nullable|integer',
+                'title' => 'required',
+                'quantity' => 'required|min:1',
+                'time' => 'required|min:1|max:6',
+            ]);
+            $check = Discount_code::where('id','<>',$request->id)->where('title',$request->title)->get()->toArray();
+            if(empty($check)){
+                $discount_code = Discount_code::find($request->id);
+                $discount_code->title = $request->title;
+                $discount_code->price = $request->price;
+                $discount_code->quantity = $request->quantity;
+                $discount_code->time = $request->time;
+                $discount_code->save();
+            }else{
+                return 'error';
+            }
+        }
+    }
+
+    public function delete(Request $request){
+        if(request()->ajax()){
+            if(!empty($request->id) && is_numeric($request->id)){
+                Discount_code::find($request->id)->delete();
             }
         }
     }

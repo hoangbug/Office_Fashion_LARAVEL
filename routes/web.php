@@ -253,9 +253,12 @@ Route::middleware(['loginAdmin'])->group(function () {
 
         //* Discount code
         Route::group(['prefix' => 'discount-code'], function () {
-            Route::get('/', 'Admin\DiscountCode\DiscountCodeController@index')->name('discount.index');
-            Route::get('/select-product', 'Admin\DiscountCode\DiscountCodeController@selectProduct')->name('select-product');
+            Route::get('/view-discount', 'Admin\DiscountCode\DiscountCodeController@index')->name('discount.index');
+            Route::get('/add-discount', 'Admin\DiscountCode\DiscountCodeController@viewAdd')->name('discount.add');
             Route::post('/insert-code', 'Admin\DiscountCode\DiscountCodeController@insertCode')->name('insert-code');
+            Route::get('/show-code', 'Admin\DiscountCode\DiscountCodeController@showCode')->name('show.code');
+            Route::post('/update-code', 'Admin\DiscountCode\DiscountCodeController@updateCode')->name('update.code');
+            Route::post('/view-delete', 'Admin\DiscountCode\DiscountCodeController@delete')->name('discount.delete');
         });
 
         //* Discount-code
