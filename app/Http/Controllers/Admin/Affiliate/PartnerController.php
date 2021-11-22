@@ -95,4 +95,15 @@ class PartnerController extends Controller
             }
         }
     }
+
+    public function unlockup(Request $request)
+    {
+        if(request()->ajax()){
+            if(!empty($request->id) && is_numeric($request->id)){
+                $partner = AffiliatePartner::find($request->id);
+                $partner->status = 2;
+                $partner->save();
+            }
+        }
+    }
 }

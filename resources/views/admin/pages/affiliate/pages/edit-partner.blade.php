@@ -62,6 +62,8 @@
     @if(($data[0]['status']) == 1)
         <button type="button" class="btn btn-primary approve-partner" data-url="{{ $data[0]['id'] }}" data-dismiss="modal">Phê duyệt</button>
     @elseif(($data[0]['status']) == 2)
-        <button type="button" class="btn btn-danger lockup-partner" data-url="{{ $data[0]['id'] }}" data-dismiss="modal">Dừng hoạt động</button>
+        <button type="button" class="btn btn-danger lockup-partner" data-url="{{ $data[0]['id'] }}" data-dismiss="modal">Khóa tài khoản</button>
+    @elseif(($data[0]['status']) == 3)
+        <button type="button" class="btn btn-warning unlockup-partner" data-url="{{ $data[0]['id'] }}" data-dismiss="modal">Mở khóa</button>
     @endif
 </div>
