@@ -99,7 +99,7 @@
                 </a>
             </li>
             <li>
-                <a href=""><i class="sidebar-item-icon ti-notepad"></i>
+                <a href="{{ route('statistical.index') }}"><i class="sidebar-item-icon ti-notepad"></i>
                     <span class="nav-label">Báo cáo</span>
                 </a>
             </li>
