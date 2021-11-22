@@ -58,11 +58,11 @@
 			@if(Session::has('error'))
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
-					<div class="alert alert-danger alert-dismissible show" role="alert" style="font-size: 23px">
+					<div class="alert alert-success alert-dismissible show" role="alert" style="font-size: 23px">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<strong>Error!</strong> @php echo session('error'); @endphp
+                        @php echo session('error'); @endphp
 					</div>
 				</div>
 			</div>

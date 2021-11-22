@@ -43,7 +43,7 @@
 			<div class="made-with">Made with <strong>Hoang Bug</strong></div>
 		</a>
 
-		
+
 	    <!--   Big container   -->
 	    <div class="container" style="padding-top: 60px">
 			@if(Session::has('error'))
@@ -71,165 +71,136 @@
 		                        	</h3>
 									<h5>Thông tin này sẽ cho chúng tôi biết thêm về bạn.</h5>
 		                    	</div>
-								<div class="wizard-navigation">
-									<ul>
-			                            <li><a href="#about" data-toggle="tab">Bước 1</a></li>
-			                            <li><a href="#account" data-toggle="tab">Bước 2</a></li>
-			                            <li><a href="#address" data-toggle="tab">Bước 3</a></li>
-			                        </ul>
-								</div>
-
 		                        <div class="tab-content">
-		                            <div class="tab-pane" id="about">
-		                              <div class="row">
-		                                	<h4 class="info-text">Hãy bắt đầu với thông tin cơ bản (với xác thực)</h4>
-		                                	<div class="col-sm-4 col-sm-offset-1">
-		                                    	<div class="picture-container">
-		                                        	<div class="picture">
-                                        				<img src="images/affiliate/212bc90d.png" class="picture-src" id="wizardPicturePreview" title=""/>
-		                                            	<input type="file" id="wizard-picture" name="avatar" accept="image/*">
-		                                        	</div>
-		                                        	<h6>Choose Picture</h6>
-		                                    	</div>
-		                                	</div>
-		                                	<div class="col-sm-6">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">face</i>
-													</span>
-													<div class="form-group label-floating">
-			                                          <label class="control-label">First Name <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
-			                                        </div>
-												</div>
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-offset-1">
+                                            <div class="picture-container">
+                                                <div class="picture">
+                                                    <img src="images/affiliate/212bc90d.png" class="picture-src" id="wizardPicturePreview" title=""/>
+                                                    <input type="file" id="wizard-picture" name="avatar" accept="image/*">
+                                                </div>
+                                                <h6>Choose Picture</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">face</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                  <label class="control-label">Họ <small>(*)</small></label>
+                                                  <input name="firstname" type="text" value="{{ old('firstname') }}" class="form-control">
+                                                </div>
+                                            </div>
 
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">record_voice_over</i>
-													</span>
-													<div class="form-group label-floating">
-													  <label class="control-label">Last Name <small>(required)</small></label>
-													  <input name="lastname" type="text" class="form-control">
-													</div>
-												</div>
-		                                	</div>
-		                                	<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">email</i>
-													</span>
-													<div class="form-group label-floating">
-			                                            <label class="control-label">Email <small>(required)</small></label>
-			                                            <input name="email" type="email" class="form-control">
-			                                        </div>
-												</div>
-		                                	</div>
-		                            	</div>
-		                            </div>
-		                            <div class="tab-pane" id="account">
-										<h4 class="info-text"> Thông tin chi tiết </h4>
-										<div class="row">
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">business_center</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Nghề nghiệp</label>
-														<input name="profession" type="text" class="form-control @error('profession') is-invalid @enderror">
-													</div>
-													@error('profession')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												</div>
-											</div>
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">place</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Địa chi</label>
-														<input name="address" type="text" class="form-control @error('address') is-invalid @enderror">
-													</div>
-													@error('address')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												</div>
-											</div>
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">local_phone</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Số điện thoại</label>
-														<input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror">
-													</div>
-													@error('phone')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane" id="address">
-										<div class="row">
-											<div class="col-sm-12">
-												<h4 class="info-text"> Thông tin chi tiết </h4>
-											</div>
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">vpn_key</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Mật khẩu</label>
-														<input name="password" type="password" class="form-control @error('password') is-invalid @enderror">
-													</div>
-													@error('password')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												</div>
-											</div>
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">vpn_key</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Xác thực lại mật khẩu</label>
-														<input name="password_confirm" type="password" class="form-control @error('password_confirm') is-invalid @enderror">
-													</div>
-													@error('password_confirm')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												</div>
-											</div>
-										</div>
-									</div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">record_voice_over</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                  <label class="control-label">Tên <small>(*)</small></label>
+                                                  <input name="lastname" type="text" value="{{ old('lastname') }}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">email</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Địa chỉ email <small>(*)</small></label>
+                                                    <input name="email" type="email" value="{{ old('email') }}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">business_center</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Nghề nghiệp</label>
+                                                    <input name="profession" value="{{ old('profession') }}" type="text" class="form-control @error('profession') is-invalid @enderror">
+                                                </div>
+                                                @error('profession')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">place</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Địa chi</label>
+                                                    <input name="address" type="text" value="{{ old('address') }}" class="form-control @error('address') is-invalid @enderror">
+                                                </div>
+                                                @error('address')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">local_phone</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Số điện thoại</label>
+                                                    <input name="phone" type="text" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror">
+                                                </div>
+                                                @error('phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">vpn_key</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Mật khẩu</label>
+                                                    <input name="password" type="password" class="form-control @error('password') is-invalid @enderror">
+                                                </div>
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">vpn_key</i>
+                                                </span>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Xác thực lại mật khẩu</label>
+                                                    <input name="password_confirm" type="password" class="form-control @error('password_confirm') is-invalid @enderror">
+                                                </div>
+                                                @error('password_confirm')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
 		                        </div>
-		                        <div class="wizard-footer">
-		                            <div class="pull-right">
-		                                <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Tiếp theo' />
-		                                <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Đăng ký' />
-		                            </div>
-
-		                            <div class="pull-left">
-		                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Quay lại' />
-		                            </div>
-		                            <div class="clearfix"></div>
-		                        </div>
+                                <button type='submit' class='btn btn-success' style="margin-left: 350px;">Đăng ký</button>
 		                    </form>
 		                </div>
 		            </div> <!-- wizard container -->
