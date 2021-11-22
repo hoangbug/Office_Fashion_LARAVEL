@@ -21,7 +21,7 @@
 
     {{-- Date Range Picker --}}
     <link href="{{ asset('admin_assets/css/daterangepicker.css') }}" rel="stylesheet" />
-    
+
     @yield('script')
 
     <!-- THEME STYLES-->

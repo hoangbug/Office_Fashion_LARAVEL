@@ -72,6 +72,7 @@ Route::middleware(['loginAdmin'])->group(function () {
         Route::get('/profile/{id}', 'Admin\Profile\ProfileController@edit')->name('profile.edit');
         Route::post('/profile/{id}', 'Admin\Profile\ProfileController@update')->name('profile.update');
 
+        Route::get('/statistical', 'Admin\Statistical\StatisticalController@index')->name('statistical.index');
 
         //CATEGORY_BLOG
         Route::group(['prefix' => 'category-blog', 'namespace' => 'Admin\Blog'], function () {

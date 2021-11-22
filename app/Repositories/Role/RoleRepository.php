@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
  */
 class RoleRepository extends BaseRepository
 {
-    protected function model(): string
+    public function model(): string
     {
         return Role::class;
 
