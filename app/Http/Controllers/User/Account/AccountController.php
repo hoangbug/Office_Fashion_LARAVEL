@@ -45,7 +45,7 @@ class AccountController extends Controller
         $member = Member::query()->where('email', $request->email)->first();
         if (!empty($member->password)) {
             if (!Hash::check($request->password, $member->password)) {
-                return redirect()->back();
+                return redirect()->back()->with('login_failed', 'Tài khoản hoặc mật khẩu không chính xác!');
             } else {
                 session()->put('member_id', $member->id);
 
@@ -57,7 +57,7 @@ class AccountController extends Controller
                 }
             }
         }else{
-            return redirect()->back();
+            return redirect()->back()->with('login_failed','Tài khoản hoặc mật khẩu không chính xác!');
         }
     }
 

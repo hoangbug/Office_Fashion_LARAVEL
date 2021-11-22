@@ -19,3 +19,8 @@
 .error-message{
     color:red;
 }
+
+.error-text {
+    color: red;
+    margin: -19px 0 10px 20px;
+}

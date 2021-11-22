@@ -173,6 +173,21 @@ return [
             'required' => 'Vui lòng nhập tên danh mục.',
             'max' => 'Vui lòng nhập mật khẩu tối đa 150 ký tự.',
             'unique' => 'Tên danh mục đã được sử dụng.'
+        ],
+        'title' => [
+            'required' => 'Vui lòng nhập tiêu đề.',
+            'max' => 'Vui lòng nhập tiêu đề tối đa 150 ký tự.',
+            'unique' => 'Tiêu đề blog đã tồn tại.',
+        ],
+        'cate_id' => [
+            'required' => 'Vui lòng chọn danh mục.',
+        ],
+        'description' => [
+            'required' => 'Vui lòng nhập mô tả.',
+            'max' => 'Vui lòng nhập tiêu đề tối đa 10000 ký tự.',
+        ],
+        'content_blog' => [
+            'required' => 'Vui lòng nhập nội dung blog.',
         ]
 
     ],

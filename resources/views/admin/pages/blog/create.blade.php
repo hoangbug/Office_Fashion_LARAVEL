@@ -27,6 +27,7 @@
                             <div class="form-group">
                                 <label for="cate-id" class="my-input">Danh mục</label>
                                 <select name="cate_id" id="cate-id" class="form-control">
+                                    <option value="">- Lựa chọn -</option>
                                     @foreach($cateBlog as $key => $cate)
                                         <option value="{{ $cate->id }}">{{ $cate->name_cate }}</option>
                                     @endforeach
@@ -35,8 +36,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="main-image" class="my-input">Ảnh blog</label>
-                                <input type="file" class="form-control" id="main-image" name="main_image" accept="image/*">
-                                <div class="error_main_image notify-error"></div>
+                                <input type="file" class="form-control" id="main-image" name="image" accept="image/*">
+                                <div class="error_image notify-error"></div>
                             </div>
                             <div class="form-group">
                                 <label for="description" class="my-input">Mô tả blog</label>

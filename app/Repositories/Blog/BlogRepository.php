@@ -26,28 +26,27 @@ class BlogRepository extends BaseRepository
         return $this->model->find($id, $columns);
     }
 
-    public function getWithPaginate($quantity = 5)
+    public function getWithPaginate($quantity = 1)
     {
         return $this->model->latest('id')->paginate($quantity);
     }
 
-    public function create($request)
+    public function save($params)
     {
-        $main_image = $this->moveImage($request->file('main_image'), $this->path);
-        $blog = Blog::create([
-            'cate_id' => $request->cate_id,
-            'user_id' => session('user_id'),
-            'title' => $request->title,
-            'main_image'=> $main_image,
-            'description'=> $request->description,
-            'content_blog'=> $request->content_blog,
-            'views'=> 0,
-            'status' => 1
-        ]);
-        if($blog){
-            return true;
-        }
-        return false;
+        $data = new $this->model();
+
+        $data->cate_id = $params['cate_id'];
+        $data->user_id = $params['user_id'];
+        $data->title = $params['title'];
+        $data->main_image = $params['main_image'];
+        $data->description = $params['description'];
+        $data->content_blog = $params['content_blog'];
+        $data->views = 0;
+        $data->created_at = now();
+        $data->timestamps = false;
+        $data->save();
+
+        return $data;
     }
 
     public function update($id, $attributes)
