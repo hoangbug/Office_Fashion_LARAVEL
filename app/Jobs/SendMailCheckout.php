@@ -43,11 +43,11 @@ class SendMailCheckout implements ShouldQueue
         // dd($user);
         $order_detail = OrderDetail::select('order_id', 'product_id', 'name_size', 'quantity')->where('order_id', '=', $order->id)->get()->toArray();
 
-        // Nexmo::message()->send([
-        //     'to'   => '+84879152813',
-        //     'from' => '+84946825001',
-        //     'text' => 'Chuc mung ban da dat hang thanh cong.'
-        // ]);
+        Nexmo::message()->send([
+            'to'   => '+84879152813',
+            'from' => '+84946825001',
+            'text' => 'Chuc mung ban da dat hang thanh cong.'
+        ]);
         $email = new MailCheckout($order, $user, $order_detail);
         Mail::to($user->email)->send($email);
     }
